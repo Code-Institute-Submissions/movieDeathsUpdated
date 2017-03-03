@@ -1,0 +1,59 @@
+#number-projects-nd {
+    font-size: 60px;
+}
+
+#total-donations-nd {
+    font-size: 60px;
+}
+
+#total-projects {
+    background: #d53e4f;
+    width: 200px;
+    position: relative;
+    height: 60px;
+    font-size: 29px;
+    color: white;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom: 0px;
+}
+
+#net-donations {
+    background: #d53e4f;
+    width: 200px;
+    position: relative;
+    height: 60px;
+    font-size: 29px;
+    color: white;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom: 0px;
+}
+
+.dc-select-menu {
+    background: #d53e4f;
+    width: 80%;
+    border: none;
+    position: relative;
+    height: 31px;
+    font-size: 15px;
+    color: white;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 0px;
+}
+
+.intro_button {
+    border-radius: 4px;
+    position:relative;
+    top: 11px;
+    background-color: white;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}

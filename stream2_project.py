@@ -10,13 +10,14 @@ MONGODB_PORT = 27017
 DBS_NAME = 'movieDeaths'
 COLLECTION_NAME = 'projects'
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
 
-@app_route('movieDeaths/projects')
-def donor_projects():
+@app.route('/movieDeaths/projects')
+def movie_deaths_projects():
 
     fields = {
         '_id': False,
@@ -37,4 +38,4 @@ def donor_projects():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
