@@ -17,9 +17,9 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="./">Movie Deaths Dashboard</a>
-        </div><!-- navbar-header -->
-    </div><!-- container-fluid -->
-</div><!-- navbar -->
+        </div><!-- / navbar-header -->
+    </div><!-- / container-fluid -->
+</div><!-- / navbar -->
 
 
 <div id="outer" class="container-fluid">
@@ -36,8 +36,8 @@
                 </div>
             </div>
         </div>
-        <!-- Movies per Year Chart -->
-    </div><!-- row -->
+        <!-- / Movies per Year Chart -->
+    </div><!-- / row -->
 
 
     <div class="row">
@@ -52,8 +52,8 @@
                 </div>
             </div>
         </div>
-        <!-- Deaths per Year Chart -->
-    </div><!-- row -->
+        <!-- / Deaths per Year Chart -->
+    </div><!-- / row -->
 
 
     <div class="row">
@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <!-- Deaths per Movie Chart -->
+        <!-- / Deaths per Movie Chart -->
 
 
         <!-- Genre Chart -->
@@ -82,38 +82,24 @@
                 </div>
             </div>
         </div>
-        <!-- Genre Chart -->
-    </div><!-- row -->
+        <!-- / Genre Chart -->
+    </div><!-- / row -->
 
 
     <div class="row">
-        <!-- Deaths per Movie Chart -->
-        <div class="col-sm-6">
+        <!-- Avg Deaths per Year Chart -->
+        <div class="col-sm-12">
             <div class="chart-wrapper">
                 <div class="chart-title">
-                    Number of Deaths per Movie
+                    Average Number of Deaths per Year
                 </div>
                 <div class="chart-stage">
-                    <div id="deaths-movie-chart"></div>
+                    <div id="avg-deaths-year-chart"></div>
                 </div>
             </div>
         </div>
-        <!-- Deaths per Movie Chart -->
-
-
-        <!-- Genre Chart -->
-        <div class="col-sm-6">
-            <div class="chart-wrapper">
-                <div class="chart-title">
-                    Movie Genres
-                </div>
-                <div class="chart-stage">
-                    <div id="genre-chart"></div>
-                </div>
-            </div>
-        </div>
-        <!-- Genre Chart -->
-    </div><!-- row -->
+        <!-- / Avg Deaths per Year Chart -->
+    </div><!-- / row -->
 
 
 
@@ -122,7 +108,7 @@
 <hr>
 <p class="small text-muted"> Data viz &#9829; from Code Institute</a></p>
 
-</div><!-- outer -->
+</div><!-- / outer -->
 
 <script src="{{ url_for ('static', filename='lib/js/jquery.min.js')}}"></script>
 <script src="{{ url_for ('static', filename='lib/js/bootstrap.min.js')}}"></script>

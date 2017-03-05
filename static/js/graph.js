@@ -34,15 +34,88 @@ function makeGraphs(error, projectsJson) {
     //Calculate metrics
     var numMoviesByYear = yearDim.group();
 
+
     var totalNumDeathsByYear = yearDim.group().reduceSum(function (d) {
         return d["Body_Count"];
     });
 
-    var numDeathsByMovie = movieDim.group().reduceSum(function (d) {
+
+    var totalNumDeathsByMovie = movieDim.group().reduceSum(function (d) {
         return d["Body_Count"];
     });
 
+
     var genres = genreDim.group();
+
+
+    // var avgNumDeathsPerYear = yearDim.group().reduce(
+    //     function (d, v) {
+    //         ++d.count;
+    //         d.sumDeaths += (v.open + v.close) / 2;
+    //         d.avgDeaths = d.sumDeaths / d.count;
+    //         return d["Body_count"];
+    //     },
+    //
+    //     function (d, v) {
+    //         --d.count;
+    //         d.sumDeaths -= (v.open - v.close) / 2;
+    //         d.avgDeaths = d.count ? d.sumDeaths / d.count : 0;
+    //         return d["Body_count"];
+    //     },
+    //
+    //     function () {
+    //         return {
+    //             count: 0,
+    //             sumDeaths: 0,
+    //             avgDeaths: 0
+    //         };
+    //     }
+    // );
+
+    var avgNumDeathsPerYear = yearDim.group().reduce(reduceAdd, reduceRemove, reduceInitial);
+        function reduceAdd(d, v) {
+            ++d.count;
+            d.total += v.value;
+            console.log(d.count);
+            return d;
+        },
+
+        function reduceRemove(d, v) {
+            --d.count;
+            d.total -= v.value;
+            return d;
+        },
+
+        function reduceInitial() {
+            return {
+                count: 0,
+                total: 0
+            };
+        }
+
+
+    //     function (d, v) {
+    //         ++d.count;
+    //         d.sumDeaths += (v.open + v.close) / 2;
+    //         d.avgDeaths = d.sumDeaths / d.count;
+    //         return d["Body_count"];
+    //     },
+    //
+    //     function (d, v) {
+    //         --d.count;
+    //         d.sumDeaths -= (v.open - v.close) / 2;
+    //         d.avgDeaths = d.count ? d.sumDeaths / d.count : 0;
+    //         return d["Body_count"];
+    //     },
+    //
+    //     function () {
+    //         return {
+    //             count: 0,
+    //             sumDeaths: 0,
+    //             avgDeaths: 0
+    //         };
+    //     }
+    // );
 
 
     //Define values (to be used in charts)
@@ -55,6 +128,7 @@ function makeGraphs(error, projectsJson) {
     var deathsPerYearChart = dc.lineChart("#year-death-chart");
     var deathsPerMovieChart = dc.rowChart("#deaths-movie-chart");
     var movieGenres = dc.pieChart("#genre-chart");
+    var avgDeathsPerYearChart = dc.barChart("#avg-deaths-year-chart");
 
 
     moviesPerYearChart
@@ -89,7 +163,7 @@ function makeGraphs(error, projectsJson) {
         .width(800)
         .height(500)
         .dimension(movieDim)
-        .group(numDeathsByMovie)
+        .group(totalNumDeathsByMovie)
         .transitionDuration(500)
         .xAxis().ticks(10);
     deathsPerMovieChart.ordering(function (d) { return -d.value});
@@ -103,6 +177,21 @@ function makeGraphs(error, projectsJson) {
         .transitionDuration(1500)
         .dimension(genreDim)
         .group(genres);
+
+    avgDeathsPerYearChart
+        .width(1650)
+        .height(400)
+        .margins({top: 10, right: 50, bottom: 30, left: 50})
+        .dimension(yearDim)
+        .group(avgNumDeathsPerYear)
+        .transitionDuration(500)
+        .x(d3.scale.ordinal().domain([(minYear), (maxYear)]))
+        .xUnits(dc.units.ordinal)
+        .xAxisLabel("Year")
+        .elasticX(true)
+        .elasticY(true)
+        .yAxis().ticks(10);
+    avgDeathsPerYearChart.valueAccessor(function(d) { return d.value.count > 0 ? d.value.total / d.value.count : 0; });
 
 
 
