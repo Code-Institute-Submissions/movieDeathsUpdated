@@ -57,3 +57,5 @@
     float: none;
     margin: 0 auto;
 }
+
+.dc-chart g.pie text {fill: black;}

@@ -28,7 +28,8 @@ def movie_deaths_projects():
         'Genre': True,
         'Director': True,
         'Length_Minutes': True,
-        'IMDB_Rating': True
+        'IMDB_Rating': True,
+        'Deaths_Minute': True
     }
 
     with MongoClient(MONGODB_HOST, MONGODB_PORT) as conn:
