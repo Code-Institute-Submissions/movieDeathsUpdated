@@ -32,13 +32,9 @@ function makeGraphs(error, projectsJson) {
         return d["Director"];
     });
 
-    // var minuteDim = ndx.dimension(function (d) {
-    //     return d["Deaths_Minute"];
-    // });
-
-    // var deathsDim = ndx.dimension(function (d) {
-    //     return d["Body_Count"];
-    // });
+    var imdbDim = ndx.dimension(function (d) {
+        return d["IMDB_Rating"];
+    });
 
 
 
@@ -52,13 +48,17 @@ function makeGraphs(error, projectsJson) {
     });
 
 
+    // var avgDeathsByYear = yearDim.group().reduceSum(function (d) {
+    //     return
+    // });
+
     var totalNumDeathsByMovie = movieDim.group().reduceSum(function (d) {
         return d["Body_Count"];
     });
 
     var numDeathsPerMinute = movieDim.group().reduceSum(function (d) {
         // return 0.01;
-        return d["Body_Count"] / d["Length_Minutes"];
+        return parseFloat(d["Body_Count"] / d["Length_Minutes"]).toFixed(2);
     });
 
     var numDeathsPerDirector = directorDim.group().reduceSum(function (d) {
@@ -66,10 +66,12 @@ function makeGraphs(error, projectsJson) {
     });
 
     var numDeathsPerMinuteDirector = directorDim.group().reduceSum(function (d) {
-        return d["Body_Count"] / d["Length_Minutes"];
+        return parseFloat(d["Body_Count"] / d["Length_Minutes"]).toFixed(2);
     });
 
-    var genres = genreDim.group();
+
+
+    // var genres = genreDim.group();
 
     // var avgNumDeathsPerYear = yearDim.group().reduce(
     //     //add
@@ -175,22 +177,23 @@ function makeGraphs(error, projectsJson) {
 
     //Charts
     var moviesPerYearChart = dc.barChart("#year-movie-chart");
-    var deathsPerYearChart = dc.lineChart("#year-death-chart");
+    var deathsPerYearChart = dc.barChart("#year-death-chart");
     var deathsPerMovieChart = dc.rowChart("#deaths-movie-chart");
     var deathsPerMinuteChart = dc.rowChart("#deaths-minute-chart");
     var deathsPerDirectorChart = dc.rowChart("#deaths-director-chart");
     var deathsPerMinuteDirectorChart = dc.rowChart("#deaths-minute-director-chart");
-    var movieGenres = dc.pieChart("#genre-chart");
+    var bodyCountIMDBChart = dc.bubbleChart("#body-imdb-chart");
+    // var movieGenres = dc.pieChart("#genre-chart");
     // var avgDeathsPerYearChart = dc.lineChart("#avg-deaths-year-chart");
 
 
     moviesPerYearChart
-        .width(1650)
+        .width(820)
         .height(400)
-        .margins({top: 10, right: 50, bottom: 30, left: 50})
+        .margins({top: 30, right: 50, bottom: 50, left: 50})
         .dimension(yearDim)
         .group(numMoviesByYear)
-        .transitionDuration(500)
+        .transitionDuration(1500)
         .x(d3.scale.ordinal().domain([(minYear), (maxYear)]))
         .xUnits(dc.units.ordinal)
         .xAxisLabel("Year")
@@ -199,12 +202,12 @@ function makeGraphs(error, projectsJson) {
         .yAxis().ticks(10);
 
     deathsPerYearChart
-        .width(1650)
+        .width(820)
         .height(400)
-        .margins({top: 10, right: 50, bottom: 30, left: 50})
+        .margins({top: 30, right: 50, bottom: 50, left: 50})
         .dimension(yearDim)
         .group(totalNumDeathsByYear)
-        .transitionDuration(500)
+        .transitionDuration(1500)
         .x(d3.scale.ordinal().domain([(minYear), (maxYear)]))
         .xUnits(dc.units.ordinal)
         .xAxisLabel("Year")
@@ -213,19 +216,19 @@ function makeGraphs(error, projectsJson) {
         .yAxis().ticks(10);
 
     deathsPerMovieChart
-        .width(800)
-        .height(500)
-        .dimension(movieDim)
-        .group(totalNumDeathsByMovie)
+        .width(820)
+        .height(320)
+        .elasticX(true)
         .transitionDuration(1500)
-        .xAxis().ticks(10);
+        .dimension(movieDim)
+        .group(totalNumDeathsByMovie);
     deathsPerMovieChart.ordering(function (d) { return -d.value});
     deathsPerMovieChart.rowsCap([10]);
     deathsPerMovieChart.othersGrouper(false);
 
     deathsPerMinuteChart
-        .width(800)
-        .height(500)
+        .width(820)
+        .height(320)
         .x(d3.scale.linear().domain([0,6]))
         .elasticX(true)
         .dimension(movieDim)
@@ -239,7 +242,7 @@ function makeGraphs(error, projectsJson) {
 
     deathsPerDirectorChart
         .width(800)
-        .height(500)
+        .height(320)
         .x(d3.scale.linear().domain([0,6]))
         .elasticX(true)
         .dimension(directorDim)
@@ -253,7 +256,7 @@ function makeGraphs(error, projectsJson) {
 
     deathsPerMinuteDirectorChart
         .width(800)
-        .height(500)
+        .height(320)
         .x(d3.scale.linear().domain([0,6]))
         .elasticX(true)
         .dimension(directorDim)
@@ -264,30 +267,45 @@ function makeGraphs(error, projectsJson) {
     deathsPerMinuteDirectorChart.rowsCap([10]);
     deathsPerMinuteDirectorChart.othersGrouper(false);
 
-    movieGenres
-        .radius(200)
-        .width(800)
+
+    bodyCountIMDBChart
+        .width(1650)
         .height(500)
         .transitionDuration(1500)
-        .dimension(genreDim)
-        .group(genres)
-        .externalLabels(50);
+        .x(d3.scale.linear().domain([0,10]))
+        .dimension(imdbDim)
+        .group(numDeathsPerMinute)
+        .elasticRadius(true)
+        .colorAccessor(function (d) {
+            return d;
+        })
+        .keyAccessor(function (d) {
+            return d["IMDB_Rating"];
+        })
+        .valueAccessor(function (d) {
+            return d["Deaths_Minute"];
+        })
+        .radiusValueAccessor(function (d) {
+            return d["Body_Count"];
+        });
 
 
-    // avgDeathsPerYearChart
-    //     .width(1650)
-    //     .height(400)
-    //     .margins({top: 10, right: 50, bottom: 30, left: 50})
-    //     .dimension(yearDim)
-    //     .group(avgNumDeathsPerYear)
-    //     .transitionDuration(500)
-    //     .x(d3.scale.ordinal().domain([(minYear), (maxYear)]))
-    //     .xUnits(dc.units.ordinal)
-    //     .xAxisLabel("Year")
-    //     .elasticX(true)
-    //     .elasticY(true)
-    //     .yAxis().ticks(10);
-    // avgDeathsPerYearChart.valueAccessor(function (d) { return d.value; });
+
+    // movieGenres
+    //     .radius(200)
+    //     .width(800)
+    //     .height(500)
+    //     .transitionDuration(1500)
+    //     .dimension(genreDim)
+    //     .group(genres)
+    //     .externalLabels(30)
+    //     .minAngleForLabel(0.0001);
+    // movieGenres.ordering(function (d) { return -d.value});
+    // movieGenres.slicesCap([10]);
+
+
+
+
 
 
 
