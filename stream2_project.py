@@ -10,7 +10,7 @@ app = Flask(__name__)
 # MONGODB_PORT = 27017
 # DBS_NAME = 'movieDeaths'
 
-MONGO_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017')
+MONGODB_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017')
 DBS_NAME = os.getenv('MONGO_DB_NAME', 'movieDeaths')
 COLLECTION_NAME = os.getenv('MONGO_COLLECTION_NAME', 'projects')
 
@@ -36,7 +36,7 @@ def movie_deaths_projects():
         'Deaths_Minute': True
     }
 
-    with MongoClient(MONGO_URI) as conn:
+    with MongoClient(MONGODB_URI) as conn:
         collection = conn[DBS_NAME][COLLECTION_NAME]
         projects = collection.find(projection=fields, limit=10000)
         return json.dumps(list(projects))
