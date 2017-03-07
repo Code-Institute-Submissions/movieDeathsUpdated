@@ -36,7 +36,7 @@ def movie_deaths_projects():
         'Deaths_Minute': True
     }
 
-    with MongoClient(MONGOURI) as conn:
+    with MongoClient(MONGO_URI) as conn:
         collection = conn[DBS_NAME][COLLECTION_NAME]
         projects = collection.find(projection=fields, limit=10000)
         return json.dumps(list(projects))
