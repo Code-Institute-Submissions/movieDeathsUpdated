@@ -290,7 +290,7 @@ function makeGraphs(error, projectsJson) {
     bodyCountIMDBChart
         .width(1650)
         .height(800)
-        .margins({top: 20, right: 50, bottom: 30, left: 40})
+        .margins({top: 20, right: 100, bottom: 30, left: 40})
         .transitionDuration(1500)
         .dimension(movieDim)
         .group(statsByMovie)
@@ -343,7 +343,20 @@ function makeGraphs(error, projectsJson) {
     movieGenres.ordering(function (d) { return -d.value});
     movieGenres.slicesCap([13]);
 
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+            $('.scrollUp').fadeIn();
+        } else {
+            $('.scrollUp').fadeOut();
+        }
+    });
 
+    $('.scrollUp').click(function () {
+        $("html, body").animate({
+            scrollTop: 0
+        }, 600);
+        return false;
+    });
 
 
 
