@@ -69,9 +69,29 @@ function makeGraphs(error, projectsJson) {
         return parseFloat(d["Body_Count"] / d["Length_Minutes"]).toFixed(2);
     });
 
+    var statsByMovie = movieDim.group().reduce(
+        function (p, v) {
+            p.deaths_minute += +v["Deaths_Minute"];
+            p.imdb_rating += +v["IMDB_Rating"];
+            p.body_count += +v["Body_Count"];
+            return p;
+        },
+        function (p, v) {
+            p.deaths_minute -= +v["Deaths_Minute"];
+            p.imdb_rating -= +v["IMDB_Rating"];
+            p.body_count -= +v["Body_Count"];
+            return p;
+        },
+        function () {
+            return {deaths_minute: 0, imdb_rating: 0, body_count: 0}
+        }
+    );
+
+    var numberFormat = d3.format(".0f");
 
 
-    // var genres = genreDim.group();
+
+    var genres = genreDim.group();
 
     // var avgNumDeathsPerYear = yearDim.group().reduce(
     //     //add
@@ -169,7 +189,6 @@ function makeGraphs(error, projectsJson) {
     //     }
     // );
 
-
     //Define values (to be used in charts)
     var minYear = yearDim.bottom(1)[0]["Year"];
     var maxYear = yearDim.top(1)[0]["Year"];
@@ -183,7 +202,7 @@ function makeGraphs(error, projectsJson) {
     var deathsPerDirectorChart = dc.rowChart("#deaths-director-chart");
     var deathsPerMinuteDirectorChart = dc.rowChart("#deaths-minute-director-chart");
     var bodyCountIMDBChart = dc.bubbleChart("#body-imdb-chart");
-    // var movieGenres = dc.pieChart("#genre-chart");
+    var movieGenres = dc.pieChart("#genre-chart");
     // var avgDeathsPerYearChart = dc.lineChart("#avg-deaths-year-chart");
 
 
@@ -229,7 +248,7 @@ function makeGraphs(error, projectsJson) {
     deathsPerMinuteChart
         .width(820)
         .height(320)
-        .x(d3.scale.linear().domain([0,6]))
+        // .x(d3.scale.linear().domain([0,6]))
         .elasticX(true)
         .dimension(movieDim)
         .group(numDeathsPerMinute)
@@ -270,38 +289,59 @@ function makeGraphs(error, projectsJson) {
 
     bodyCountIMDBChart
         .width(1650)
-        .height(500)
+        .height(800)
+        .margins({top: 20, right: 50, bottom: 30, left: 40})
         .transitionDuration(1500)
-        .x(d3.scale.linear().domain([0,10]))
-        .dimension(imdbDim)
-        .group(numDeathsPerMinute)
-        .elasticRadius(true)
-        .colorAccessor(function (d) {
-            return d;
+        .dimension(movieDim)
+        .group(statsByMovie)
+        .colors(d3.scale.category20())
+        .keyAccessor(function (p) {
+            return p.value.imdb_rating;
         })
-        .keyAccessor(function (d) {
-            return d["IMDB_Rating"];
+        .valueAccessor(function (p) {
+            return p.value.deaths_minute;
         })
-        .valueAccessor(function (d) {
-            return d["Deaths_Minute"];
+        .radiusValueAccessor(function (p) {
+            return p.value.body_count;
         })
-        .radiusValueAccessor(function (d) {
-            return d["Body_Count"];
+        .x(d3.scale.linear().range([1, 10]))
+        .r(d3.scale.linear().domain([0, 850]))
+        .minRadiusWithLabel(34)
+        .elasticY(true)
+        .yAxisPadding(.5)
+        .elasticX(true)
+        .xAxisPadding(1)
+        .xAxisLabel("IMDB Rating")
+        .yAxisLabel("Body Count/Minute")
+        .maxBubbleRelativeSize(.05)
+        .renderHorizontalGridLines(true)
+        .renderVerticalGridLines(true)
+        .renderLabel(true)
+        .renderTitle(true)
+        .title(function (p) {
+                return p.key
+                    + "\n"
+                    + "Body Count : " + numberFormat(p.value.body_count)
+                          });
+    bodyCountIMDBChart.yAxis().tickFormat(function (s) {
+            return s;
+        });
+    bodyCountIMDBChart.xAxis().tickFormat(function (s) {
+            return s;
         });
 
 
-
-    // movieGenres
-    //     .radius(200)
-    //     .width(800)
-    //     .height(500)
-    //     .transitionDuration(1500)
-    //     .dimension(genreDim)
-    //     .group(genres)
-    //     .externalLabels(30)
-    //     .minAngleForLabel(0.0001);
-    // movieGenres.ordering(function (d) { return -d.value});
-    // movieGenres.slicesCap([10]);
+    movieGenres
+        .radius(200)
+        .width(800)
+        .height(500)
+        .transitionDuration(1500)
+        .dimension(genreDim)
+        .group(genres)
+        .externalLabels(-30)
+        .minAngleForLabel(0.0001);
+    movieGenres.ordering(function (d) { return -d.value});
+    movieGenres.slicesCap([13]);
 
 
 

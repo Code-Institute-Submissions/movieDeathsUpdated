@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for ('static', filename='lib/css/keen-dashboards.css') }}">
     <link rel="stylesheet" href="{{ url_for ('static', filename='lib/css/dc.css') }}">
     <link rel="stylesheet" href="{{ url_for ('static', filename='css/custom.css') }}">
+    <link rel="stylesheet" href="/static/lib/css/introjs.css" />
 </head>
 
 
@@ -16,6 +17,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
+            <button class="intro_button" type="button" autofocus onclick="javascript:introJs().start();">Start Tour!</button>
             <a class="navbar-brand" href="./">Movie Deaths Dashboard</a>
         </div><!-- / navbar-header -->
     </div><!-- / container-fluid -->
@@ -27,7 +29,7 @@
     <div class="row">
         <!-- Movies per Year Chart -->
         <div class="col-sm-6">
-            <div class="chart-wrapper">
+            <div class="chart-wrapper padding-left" data-step="1" data-intro="Choose the State you" style="font-weight: normal" data-position="right">
                 <div class="chart-title">
                     Number of Movies per Year
                 </div>
@@ -40,7 +42,7 @@
 
         <!-- Deaths per Year Chart -->
         <div class="col-sm-6">
-            <div class="chart-wrapper">
+            <div class="chart-wrapper padding-right">
                 <div class="chart-title">
                     Number of Deaths per Year
                 </div>
@@ -56,7 +58,7 @@
     <div class="row">
         <!-- Deaths per Movie Chart -->
         <div class="col-sm-6">
-            <div class="chart-wrapper">
+            <div class="chart-wrapper padding-left">
                 <div class="chart-title">
                     Number of Deaths per Movie
                 </div>
@@ -69,7 +71,7 @@
 
         <!-- Deaths per Director Chart -->
         <div class="col-sm-6">
-            <div class="chart-wrapper">
+            <div class="chart-wrapper padding-right">
                 <div class="chart-title">
                     Number of Deaths per Director
                 </div>
@@ -85,7 +87,7 @@
     <div class="row">
         <!-- Deaths per Minute Chart -->
         <div class="col-sm-6">
-            <div class="chart-wrapper">
+            <div class="chart-wrapper padding-left">
                 <div class="chart-title">
                     Number of Deaths per Minute
                 </div>
@@ -98,7 +100,7 @@
 
         <!-- Deaths per Minute (Director) Chart -->
         <div class="col-sm-6">
-            <div class="chart-wrapper">
+            <div class="chart-wrapper padding-right">
                 <div class="chart-title">
                     Number of Deaths per Minute (Director)
                 </div>
@@ -108,6 +110,34 @@
             </div>
         </div>
         <!-- / Deaths per Minute (Director) Chart -->
+    </div><!-- / row -->
+
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="chart-title">
+            </div>
+            <div class="chart-stage">
+            </div>
+        </div>
+        <!-- Genre Chart -->
+        <div class="col-sm-6">
+            <div class="chart-wrapper">
+                <div class="chart-title">
+                    Movie Genres
+                </div>
+                <div class="chart-stage">
+                    <div id="genre-chart"></div>
+                </div>
+            </div>
+        </div>
+        <!-- / Genre Chart -->
+        <div class="col-sm-3">
+            <div class="chart-title">
+            </div>
+            <div class="chart-stage">
+            </div>
+        </div>
     </div><!-- / row -->
 
 
@@ -127,20 +157,7 @@
     </div><!-- / row -->
 
 
-{#    <div class="row">#}
-{#        <!-- Genre Chart -->#}
-{#        <div class="col-sm-6">#}
-{#            <div class="chart-wrapper">#}
-{#                <div class="chart-title">#}
-{#                    Movie Genres#}
-{#                </div>#}
-{#                <div class="chart-stage">#}
-{#                    <div id="genre-chart"></div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#        <!-- / Genre Chart -->#}
-{#    </div><!-- / row -->#}
+
 
 
 {#    <div class="row">#}
@@ -176,5 +193,7 @@
 
 <script src="{{ url_for ('static', filename='lib/js/keen.min.js')}}"></script>
 <script src="{{ url_for ('static', filename='js/graph.js')}}"></script>
+<script src="/static/lib/js/intro.js" type="text/javascript"></script>
+
 </body>
 </html>
