@@ -16,7 +16,8 @@
     <link href="../static/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet'
+          type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <!-- Theme CSS -->
@@ -27,30 +28,32 @@
     <link rel="stylesheet" href="{{ url_for ('static', filename='lib/css/keen-dashboards.css') }}">
     <link rel="stylesheet" href="{{ url_for ('static', filename='lib/css/dc.css') }}">
     <link rel="stylesheet" href="{{ url_for ('static', filename='css/custom.css') }}">
-    <link rel="stylesheet" href="/static/lib/css/introjs.css" />
+    <link rel="stylesheet" href="/static/lib/css/introjs.css"/>
 
 </head>
 
 <body id="page-top" class="index application">
 
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="intro-text">
-                <div class="intro-lead-in">Movie Deaths Dashboard</div>
-                <div class="intro-heading">Come in and Explore!</div>
-                <button class="intro-button btn btn-xl" onclick="javascript:introJs().start();">Start Here</button>
-            </div>
+<!-- Header -->
+<header>
+    <div class="container">
+        <div class="intro-text">
+            <div class="intro-lead-in">Movie Deaths Dashboard</div>
+            <div class="intro-heading">Come in and Explore!</div>
+            <button class="intro-button btn btn-xl scrollTo" onclick="javascript:introJs().start();">Start Here</button>
         </div>
-    </header>
-    <!-- /Header -->
+    </div>
+</header>
+<!-- /Header -->
 
-    <div id="outer" class="container-fluid">
+<div id="outer" class="container-fluid">
 
-    <div class="row margin-top">
+    <div class="row">
         <!-- Movies per Year Chart -->
         <div class="col-sm-6">
-            <div class="chart-wrapper margin-left" data-step="1" data-intro="This panel shows the distribution of movies year by year" style="font-weight: normal" data-position="right">
+            <div class="chart-wrapper margin-left" data-step="1"
+                 data-intro="This panel shows the number of movies that exist in our dataset for each year <br><br> Choose one year or many to see related info <br><br> Choose none to see data for all years <br><br> Click 'Done' to return to the Dashboard"
+                 style="font-weight: normal" data-position="right">
                 <div class="chart-title">
                     Number of Movies per Year
                 </div>
@@ -65,7 +68,7 @@
         <div class="col-sm-6">
             <div class="chart-wrapper margin-right">
                 <div class="chart-title">
-                    Number of Deaths per Year
+                    Average Number of Deaths in each Year
                 </div>
                 <div class="chart-stage">
                     <div id="year-death-chart"></div>
@@ -81,7 +84,7 @@
         <div class="col-sm-6">
             <div class="chart-wrapper margin-left">
                 <div class="chart-title">
-                    Number of Deaths per Movie
+                    Top 10 Movies - Number of Deaths
                 </div>
                 <div class="chart-stage">
                     <div id="deaths-movie-chart"></div>
@@ -94,7 +97,7 @@
         <div class="col-sm-6">
             <div class="chart-wrapper margin-right">
                 <div class="chart-title">
-                    Number of Deaths per Director
+                    Directors That Have Killed the Greatest Number of People
                 </div>
                 <div class="chart-stage">
                     <div id="deaths-director-chart"></div>
@@ -110,7 +113,7 @@
         <div class="col-sm-6">
             <div class="chart-wrapper margin-left">
                 <div class="chart-title">
-                    Number of Deaths per Minute
+                    Movies That Have the Fastest Death Rate (Deaths per Minute)
                 </div>
                 <div class="chart-stage">
                     <div id="deaths-minute-chart"></div>
@@ -123,7 +126,7 @@
         <div class="col-sm-6">
             <div class="chart-wrapper margin-right">
                 <div class="chart-title">
-                    Number of Deaths per Minute (Director)
+                    Directors That Kill People the Quickest (Deaths per Minute)
                 </div>
                 <div class="chart-stage">
                     <div id="deaths-minute-director-chart"></div>
@@ -178,12 +181,10 @@
     </div><!-- / row -->
 
 
-
-
     <!-- ScrollUp Section -->
     <div id="toTop">
         <div class="col-lg-12 text-center">
-            <button class="btn btn-xl scrollUp">Back to the Top !</button>
+            <button class="btn btn-xl scrollUp">Back to Top !</button>
         </div>
     </div>
 
@@ -204,24 +205,26 @@
     <script src="../static/lib/js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"
+            integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb"
+            crossorigin="anonymous"></script>
 
     <!-- Theme JavaScript -->
     <script src="/static/lib/js/agency.js"></script>
 
     <!-- App Route Render -->
-    <script src="{{ url_for ('static', filename='lib/js/jquery.min.js')}}"></script>
-	<script src="{{ url_for ('static', filename='lib/js/bootstrap.min.js')}}"></script>
-	<script src="{{ url_for ('static', filename='lib/js/crossfilter.js')}}"></script>
-	<script src="{{ url_for ('static', filename='lib/js/d3.js')}}"></script>
-	<script src="{{ url_for ('static', filename='lib/js/dc.js')}}"></script>
-	<script src="{{ url_for ('static', filename='lib/js/queue.js')}}"></script>
+    <script src="{{ url_for ('static', filename='lib/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for ('static', filename='lib/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for ('static', filename='lib/js/crossfilter.js') }}"></script>
+    <script src="{{ url_for ('static', filename='lib/js/d3.js') }}"></script>
+    <script src="{{ url_for ('static', filename='lib/js/dc.js') }}"></script>
+    <script src="{{ url_for ('static', filename='lib/js/queue.js') }}"></script>
 
-	<script src="{{ url_for ('static', filename='lib/js/keen.min.js')}}"></script>
-	<script src="{{ url_for ('static', filename='js/graph.js')}}"></script>
-	<script src="/static/lib/js/intro.js" type="text/javascript"></script>
+    <script src="{{ url_for ('static', filename='lib/js/keen.min.js') }}"></script>
+    <script src="{{ url_for ('static', filename='js/graph.js') }}"></script>
+    <script src="/static/lib/js/intro.js" type="text/javascript"></script>
 
-
+</div>
 </body>
 
 </html>

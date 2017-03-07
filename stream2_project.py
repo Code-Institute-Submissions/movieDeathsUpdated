@@ -41,6 +41,6 @@ def movie_deaths_projects():
         projects = collection.find(projection=fields, limit=10000)
         return json.dumps(list(projects))
 
-
-if __name__ == '__main__':
-    app.run(debug=True)
+#
+# if __name__ == '__main__':
+#     app.run(debug=True)
