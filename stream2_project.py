@@ -2,12 +2,16 @@ from flask import Flask
 from flask import render_template
 from pymongo import MongoClient
 import json
+import os
 
 app = Flask(__name__)
 
-MONGODB_HOST = 'localhost'
-MONGODB_PORT = 27017
-DBS_NAME = 'movieDeaths'
+# MONGODB_HOST = 'localhost'
+# MONGODB_PORT = 27017
+# DBS_NAME = 'movieDeaths'
+
+MONGO_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017')
+DBS_NAME = os.getenv('MONGO_DB_NAME', 'movieDeaths')
 COLLECTION_NAME = 'projects'
 
 
@@ -32,7 +36,7 @@ def movie_deaths_projects():
         'Deaths_Minute': True
     }
 
-    with MongoClient(MONGODB_HOST, MONGODB_PORT) as conn:
+    with MongoClient(MONGOURI) as conn:
         collection = conn[DBS_NAME][COLLECTION_NAME]
         projects = collection.find(projection=fields, limit=10000)
         return json.dumps(list(projects))
