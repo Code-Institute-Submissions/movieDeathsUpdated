@@ -121,6 +121,7 @@ function makeGraphs(error, movieDeathsProjects) {
         .width(820)
         .height(400)
         .margins({top: 30, right: 50, bottom: 50, left: 50})
+        .colors("#a10300")
         .dimension(yearDim)
         .group(numMoviesByYear)
         .transitionDuration(1500)
@@ -136,7 +137,8 @@ function makeGraphs(error, movieDeathsProjects) {
         .width(820)
         .height(400)
         .margins({top: 30, right: 50, bottom: 50, left: 50})
-        .dimension(movieDim)
+        .colors("#a10300")
+        .dimension(yearDim)
         .group(avgDeathsPerYear)
         .transitionDuration(1500)
         .x(d3.scale.ordinal().domain([(minYear), (maxYear)]))
@@ -144,15 +146,16 @@ function makeGraphs(error, movieDeathsProjects) {
         .xAxisLabel("Year")
         .elasticX(true)
         .elasticY(true)
-        .yAxis().ticks(10);
-        // .valueAccessor(function (p) {
-        //     return p.value.average;
-        // });
+        // .yAxis().ticks(10)
+        .valueAccessor(function (p) {
+            return p.value.average;
+        });
 
 
     deathsPerMovieChart // -- RowChart -- //
         .width(820)
         .height(320)
+        .ordinalColors(["#960000", "#9d2001", "#aa4000", "#b75d00", "#c27300", "#c77e00", "#cc8b00", "#d29700", "#d8a400", "#deb300"])
         .elasticX(true)
         .transitionDuration(1500)
         .dimension(movieDim)
@@ -167,7 +170,7 @@ function makeGraphs(error, movieDeathsProjects) {
     deathsPerMinuteChart // -- RowChart -- //
         .width(820)
         .height(320)
-        // .x(d3.scale.linear().domain([0,6]))
+        .ordinalColors(["#960000", "#9d2001", "#aa4000", "#b75d00", "#c27300", "#c77e00", "#cc8b00", "#d29700", "#d8a400", "#deb300"])
         .elasticX(true)
         .dimension(movieDim)
         .group(numDeathsPerMinute)
@@ -183,6 +186,7 @@ function makeGraphs(error, movieDeathsProjects) {
     deathsPerDirectorChart // -- RowChart -- //
         .width(800)
         .height(320)
+        .ordinalColors(["#deb300", "#d8a400", "#d29700", "#cc8b00", "#c77e00", "#c27300", "#b75d00", "#aa4000", "#9d2001", "#960000"])
         .x(d3.scale.linear().domain([0, 6]))
         .elasticX(true)
         .dimension(directorDim)
@@ -199,6 +203,7 @@ function makeGraphs(error, movieDeathsProjects) {
     deathsPerMinuteDirectorChart // -- RowChart -- //
         .width(800)
         .height(320)
+        .ordinalColors(["#deb300", "#d8a400", "#d29700", "#cc8b00", "#c77e00", "#c27300", "#b75d00", "#aa4000", "#9d2001", "#960000"])
         .x(d3.scale.linear().domain([0, 6]))
         .elasticX(true)
         .dimension(directorDim)
@@ -234,7 +239,7 @@ function makeGraphs(error, movieDeathsProjects) {
         .transitionDuration(1500)
         .dimension(movieDim)
         .group(statsByMovie)
-        .colors(d3.scale.category20())
+        .colors(d3.scale.category20c())
         .keyAccessor(function (p) {
             return p.value.imdb_rating;
         })
