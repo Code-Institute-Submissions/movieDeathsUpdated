@@ -19,6 +19,7 @@ header {
     background-color: white;
 }
 
+
 body.application div[class^="col-"] {
     padding: 0px 5px;
 }
@@ -64,9 +65,6 @@ body.application div[class^="col-"] {
     transform: rotate(-45deg);
 }
 
-#genre-chart {
-    color: black;
-}
 
 .dc-chart .pie-slice {
     fill: white;
@@ -80,6 +78,7 @@ body.application div[class^="col-"] {
     border-radius: 0px;
     margin-bottom: 10px;
 }
+
 
 #toTop {
     margin-top: 20px;
