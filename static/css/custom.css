@@ -14,7 +14,6 @@ header {
 }
 
 .intro_button {
-    border-radius: 4px;
     position:relative;
     top: 11px;
     background-color: white;
@@ -34,6 +33,11 @@ body.application div[class^="col-"] {
     fill-opacity: .125;
 }
 
+.dc-chart rect.deselected {
+    stroke: none;
+    fill: rgba(222, 179, 0, 0.36);
+}
+
 .center {
     margin: 0 auto;
 }
@@ -44,6 +48,10 @@ body.application div[class^="col-"] {
 
 .bg-gray {
     background-color: white;
+}
+
+#topRow {
+    margin-top: 10px;
 }
 
 #year-movie-chart .x.axis text {

@@ -119,15 +119,14 @@ function makeGraphs(error, movieDeathsProjects) {
 
     moviesPerYearChart // -- BarChart -- //
         .width(820)
-        .height(400)
-        .margins({top: 30, right: 50, bottom: 50, left: 50})
+        .height(200)
+        .margins({top: 10, right: 30, bottom: 30, left: 30})
         .colors("#a10300")
         .dimension(yearDim)
         .group(numMoviesByYear)
         .transitionDuration(1500)
-        .x(d3.scale.linear().domain([(minYear), (maxYear)]))
-        // .xUnits(dc.units.ordinal)
-        .xAxisLabel("Year")
+        .x(d3.scale.ordinal().domain([(minYear), (maxYear)]))
+        .xUnits(dc.units.ordinal)
         .elasticX(true)
         .elasticY(true)
         .yAxis().ticks(10);
@@ -135,15 +134,14 @@ function makeGraphs(error, movieDeathsProjects) {
 
     avgDeathsPerYearChart // -- BarChart -- //
         .width(820)
-        .height(400)
-        .margins({top: 30, right: 50, bottom: 50, left: 50})
+        .height(200)
+        .margins({top: 10, right: 30, bottom: 30, left: 30})
         .colors("#a10300")
         .dimension(yearDim)
         .group(avgDeathsPerYear)
         .transitionDuration(1500)
         .x(d3.scale.ordinal().domain([(minYear), (maxYear)]))
         .xUnits(dc.units.ordinal)
-        .xAxisLabel("Year")
         .elasticX(true)
         .elasticY(true)
         // .yAxis().ticks(10)
@@ -154,7 +152,7 @@ function makeGraphs(error, movieDeathsProjects) {
 
     deathsPerMovieChart // -- RowChart -- //
         .width(820)
-        .height(320)
+        .height(272)
         .ordinalColors(["#960000", "#9d2001", "#aa4000", "#b75d00", "#c27300", "#c77e00", "#cc8b00", "#d29700", "#d8a400", "#deb300"])
         .elasticX(true)
         .transitionDuration(1500)
@@ -169,7 +167,7 @@ function makeGraphs(error, movieDeathsProjects) {
 
     deathsPerMinuteChart // -- RowChart -- //
         .width(820)
-        .height(320)
+        .height(272)
         .ordinalColors(["#960000", "#9d2001", "#aa4000", "#b75d00", "#c27300", "#c77e00", "#cc8b00", "#d29700", "#d8a400", "#deb300"])
         .elasticX(true)
         .dimension(movieDim)
@@ -185,7 +183,7 @@ function makeGraphs(error, movieDeathsProjects) {
 
     deathsPerDirectorChart // -- RowChart -- //
         .width(800)
-        .height(320)
+        .height(272)
         .ordinalColors(["#deb300", "#d8a400", "#d29700", "#cc8b00", "#c77e00", "#c27300", "#b75d00", "#aa4000", "#9d2001", "#960000"])
         .x(d3.scale.linear().domain([0, 6]))
         .elasticX(true)
@@ -202,7 +200,7 @@ function makeGraphs(error, movieDeathsProjects) {
 
     deathsPerMinuteDirectorChart // -- RowChart -- //
         .width(800)
-        .height(320)
+        .height(272)
         .ordinalColors(["#deb300", "#d8a400", "#d29700", "#cc8b00", "#c77e00", "#c27300", "#b75d00", "#aa4000", "#9d2001", "#960000"])
         .x(d3.scale.linear().domain([0, 6]))
         .elasticX(true)
@@ -284,6 +282,16 @@ function makeGraphs(error, movieDeathsProjects) {
         } else {
             $('.scrollUp').fadeOut();
         }
+    });
+
+    // Edited scrolling in intro.js (1075) to avoid jerky
+    // page movement when scrollTo functionality is implemented
+
+    $('.scrollTo').click(function () {
+        $("html, body").animate({
+            scrollTop: 729
+        }, 1500);
+        return false;
     });
 
     $('.scrollUp').click(function () {

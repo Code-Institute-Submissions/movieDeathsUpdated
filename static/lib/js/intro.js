@@ -1071,8 +1071,8 @@
 
       parentElm = parentElm.parentNode;
     }
-
-    if (!_elementInViewport(targetElement.element) && this._options.scrollToElement === true) {
+// Changed to false to avoid jerky scroll to tooltip since this functionality was enabled in my jQuery scrollTo.
+    if (!_elementInViewport(targetElement.element) && this._options.scrollToElement === false) {
       var rect = targetElement.element.getBoundingClientRect(),
         winHeight = _getWinSize().height,
         top = rect.bottom - (rect.bottom - rect.top),
