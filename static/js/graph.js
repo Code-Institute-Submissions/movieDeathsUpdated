@@ -5,7 +5,6 @@ queue()
     .defer(d3.json, "/movieDeaths/projects")
     .await(makeGraphs);
 
-
 function makeGraphs(error, movieDeathsProjects) {
 
     // -- Create a crossfilter instance -- //
@@ -34,11 +33,6 @@ function makeGraphs(error, movieDeathsProjects) {
     var numMoviesByYear = yearDim.group();
 
 
-    var totalNumDeathsByYear = yearDim.group().reduceSum(function (d) {
-        return d["Body_Count"];
-    });
-
-
     var totalNumDeathsByMovie = movieDim.group().reduceSum(function (d) {
         return d["Body_Count"];
     });
@@ -59,7 +53,26 @@ function makeGraphs(error, movieDeathsProjects) {
     });
 
 
-    var genres = genreDim.group();
+    var avgDeathsPerYear = yearDim.group().reduce(
+        function reduceAdd(p, v) {
+            ++p.count;
+            p.sum_deaths += v["Body_Count"];
+            p.average = p.sum_deaths / p.count;
+            return p;
+        },
+        function reduceRemove(p, v) {
+            --p.count;
+            p.sum_deaths -= v["Body_Count"];
+            if (p.count === 0)
+                p.average = 0;
+            else
+                p.average = p.sum_deaths / p.count;
+            return p;
+        },
+        function reduceInitial() {
+            return {count: 0, sum_deaths: 0, average: 0};
+        }
+    );
 
 
     var statsByMovie = movieDim.group().reduce(
@@ -92,7 +105,7 @@ function makeGraphs(error, movieDeathsProjects) {
 
     // -- Charts -- //
     var moviesPerYearChart = dc.barChart("#year-movie-chart");
-    var deathsPerYearChart = dc.lineChart("#year-death-chart");
+    var avgDeathsPerYearChart = dc.barChart("#year-death-chart");
     var deathsPerMovieChart = dc.rowChart("#deaths-movie-chart");
     var deathsPerMinuteChart = dc.rowChart("#deaths-minute-chart");
     var deathsPerDirectorChart = dc.rowChart("#deaths-director-chart");
@@ -101,7 +114,7 @@ function makeGraphs(error, movieDeathsProjects) {
     var movieGenres = dc.pieChart("#genre-chart");
 
 
-    moviesPerYearChart // -- Bar Chart -- //
+    moviesPerYearChart // -- BarChart -- //
         .width(820)
         .height(200)
         .margins({top: 10, right: 50, bottom: 30, left: 30})
@@ -115,21 +128,24 @@ function makeGraphs(error, movieDeathsProjects) {
         .yAxis().ticks(10);
 
 
-    deathsPerYearChart // -- Bar Chart -- //
+    avgDeathsPerYearChart // -- BarChart -- //
         .width(820)
-        .height(200)
-        .margins({top: 10, right: 50, bottom: 30, left: 50})
-        .dimension(yearDim)
-        .group(totalNumDeathsByYear)
+        .height(400)
+        .margins({top: 30, right: 50, bottom: 50, left: 50})
+        .dimension(movieDim)
+        .group(avgDeathsPerYear)
         .transitionDuration(1500)
         .x(d3.scale.ordinal().range([(minYear), (maxYear)]))
         .xUnits(dc.units.ordinal)
         .elasticX(true)
         .elasticY(true)
         .yAxis().ticks(10);
+        // .valueAccessor(function (p) {
+        //     return p.value.average;
+        // });
 
 
-    deathsPerMovieChart // -- Row Chart -- //
+    deathsPerMovieChart // -- RowChart -- //
         .width(820)
         .height(280)
         .margins({top: 0, right: 50, bottom: 20, left: 20})
@@ -144,7 +160,7 @@ function makeGraphs(error, movieDeathsProjects) {
     deathsPerMovieChart.othersGrouper(false);
 
 
-    deathsPerMinuteChart // -- Row Chart -- //
+    deathsPerMinuteChart // -- RowChart -- //
         .width(820)
         .height(280)
         .margins({top: 0, right: 50, bottom: 20, left: 20})
@@ -160,10 +176,10 @@ function makeGraphs(error, movieDeathsProjects) {
     deathsPerMinuteChart.othersGrouper(false);
 
 
-    deathsPerDirectorChart // -- Row Chart -- //
+    deathsPerDirectorChart // -- RowChart -- //
         .width(800)
-        .height(280)
-        .margins({top: 0, right: 50, bottom: 20, left: 20})
+        .height(320)
+        .x(d3.scale.linear().domain([0, 6]))
         .elasticX(true)
         .dimension(directorDim)
         .group(numDeathsPerDirector)
@@ -176,10 +192,10 @@ function makeGraphs(error, movieDeathsProjects) {
     deathsPerDirectorChart.othersGrouper(false);
 
 
-    deathsPerMinuteDirectorChart // -- Row Chart -- //
+    deathsPerMinuteDirectorChart // -- RowChart -- //
         .width(800)
-        .height(280)
-        .margins({top: 0, right: 50, bottom: 20, left: 20})
+        .height(320)
+        .x(d3.scale.linear().domain([0, 6]))
         .elasticX(true)
         .dimension(directorDim)
         .group(numDeathsPerMinuteDirector)
@@ -192,7 +208,22 @@ function makeGraphs(error, movieDeathsProjects) {
     deathsPerMinuteDirectorChart.othersGrouper(false);
 
 
-    bodyCountIMDBChart // -- Bubble Chart -- //
+    movieGenres // -- PieChart -- //
+            .radius(200)
+            .width(800)
+            .height(500)
+            .transitionDuration(1500)
+            .dimension(genreDim)
+            .group(genres)
+            .externalLabels(-30)
+            .minAngleForLabel(0.0001);
+        movieGenres.ordering(function (d) {
+            return -d.value
+        });
+        movieGenres.slicesCap([13]);
+
+
+    bodyCountIMDBChart // -- BubbleChart -- //
         .width(1650)
         .height(800)
         .margins({top: 20, right: 100, bottom: 30, left: 40})
@@ -236,27 +267,14 @@ function makeGraphs(error, movieDeathsProjects) {
     });
 
 
-    movieGenres // -- Pie Chart -- //
-        .radius(200)
-        .width(800)
-        .height(500)
-        .transitionDuration(1500)
-        .dimension(genreDim)
-        .group(genres)
-        .externalLabels(-30)
-        .minAngleForLabel(0.0001);
-    movieGenres.ordering(function (d) {
-        return -d.value
-    });
-    movieGenres.slicesCap([13]);
 
-    // -- END CHARTS -- //
-
-    $('.scrollTo').click(function () {
-        $("html, body").animate({
-            scrollTop: 730
-        }, 1500);
-        return false;
+    // -- jQuery for scrolling to set points -- //
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+            $('.scrollUp').fadeIn();
+        } else {
+            $('.scrollUp').fadeOut();
+        }
     });
 
 
