@@ -29,6 +29,10 @@ function makeGraphs(error, movieDeathsProjects) {
         return d["Director"];
     });
 
+    var mpaaDim = ndx.dimension(function (d) {
+        return d["MPAA_Rating"];
+    });
+
 
 
     // -- Calculate metrics -- //
@@ -101,6 +105,10 @@ function makeGraphs(error, movieDeathsProjects) {
 
     var genres = genreDim.group();
 
+
+    var mpaaRating = mpaaDim.group();
+
+
     // -- Define values (to be used in charts) -- //
     var minYear = yearDim.bottom(1)[0]["Year"];
     var maxYear = yearDim.top(1)[0]["Year"];
@@ -115,6 +123,9 @@ function makeGraphs(error, movieDeathsProjects) {
     var deathsPerMinuteDirectorChart = dc.rowChart("#deaths-minute-director-chart");
     var bodyCountIMDBChart = dc.bubbleChart("#body-imdb-chart");
     var movieGenres = dc.pieChart("#genre-chart");
+    var mpaaRatingPie = dc.pieChart("#genre-chart-2");
+
+    // var ageRating = dc.
 
 
     moviesPerYearChart // -- BarChart -- //
@@ -220,24 +231,40 @@ function makeGraphs(error, movieDeathsProjects) {
 
 
     movieGenres // -- PieChart -- //
-            .radius(170)
-            .width(600)
-            .height(350)
-            .transitionDuration(1500)
-            .dimension(genreDim)
-            .group(genres)
-            .externalLabels(-30)
-            .minAngleForLabel(0.0001)
-            .legend(dc.legend().x(0).y(0));
-        movieGenres.ordering(function (d) {
-            return -d.value
-        });
-        movieGenres.slicesCap([13]);
+        .radius(170)
+        .width(500)
+        .height(405)
+        .transitionDuration(1500)
+        .dimension(genreDim)
+        .group(genres)
+        .renderLabel(true)
+        .minAngleForLabel(.01)
+        .externalLabels(-30);
+        // .legend(dc.legend().x(0).y(0));
+    movieGenres.ordering(function (d) {
+        return -d.value
+    });
+    movieGenres.slicesCap([11]);
+
+
+    mpaaRatingPie // -- PieChart -- //
+        .radius(170)
+        .width(500)
+        .height(406)
+        .transitionDuration(1500)
+        .dimension(mpaaDim)
+        .group(mpaaRating)
+        .ordinalColors(["#5A9BCA", "#B1AED3", "#C6DBEF", "#FDA463", "#5AB576"])
+        .renderLabel(true)
+        .minAngleForLabel(.01)
+        .externalLabels(-30);
+
+
 
 
     bodyCountIMDBChart // -- BubbleChart -- //
-        .width(1000)
-        .height(800)
+        .width(1180)
+        .height(870)
         .margins({top: 20, right: 100, bottom: 30, left: 40})
         .transitionDuration(1500)
         .dimension(movieDim)
@@ -260,13 +287,12 @@ function makeGraphs(error, movieDeathsProjects) {
         .elasticX(true)
         .xAxisPadding(1)
         .xAxisLabel("IMDB Rating")
-        .yAxisLabel("Body Count/Minute")
-        .maxBubbleRelativeSize(.05)
+        .yAxisLabel("Body Count per Minute")
+        .maxBubbleRelativeSize(.08)
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
         .renderLabel(true)
         .renderTitle(true)
-        // .legend()
         .title(function (p) {
             return p.key
                 + "\n"
