@@ -90,8 +90,13 @@ body.application div[class^="col-"] {
 }
 
 .scrollUp {
-    font-size: 20px;
-    margin-top: 80px;
+    height: 60px;
+    width:60px;
+    border-radius: 30px;
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    border: 1px solid;
 }
 
 section h3.section-subheading {

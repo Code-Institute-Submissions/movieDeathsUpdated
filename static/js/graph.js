@@ -309,7 +309,7 @@ function makeGraphs(error, movieDeathsProjects) {
 
     // -- jQuery for scrolling to set points -- //
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 100) {
+        if ($(this).scrollTop() > 800) {
             $('.scrollUp').fadeIn();
         } else {
             $('.scrollUp').fadeOut();
@@ -328,8 +328,8 @@ function makeGraphs(error, movieDeathsProjects) {
 
     $('.scrollUp').click(function () {
         $("html, body").animate({
-            scrollTop: 0
-        }, 600);
+            scrollTop: 729
+        },1000);
         return false;
     });
 
