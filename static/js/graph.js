@@ -236,7 +236,7 @@ function makeGraphs(error, movieDeathsProjects) {
         .height(405)
         .transitionDuration(1500)
         .dimension(genreDim)
-        .group(genres)
+        .group(movieGenres)
         .renderLabel(true)
         .minAngleForLabel(.01)
         .externalLabels(-30);
