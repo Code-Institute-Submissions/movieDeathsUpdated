@@ -11,7 +11,7 @@ app = Flask(__name__)
 # DBS_NAME = 'movieDeaths'
 # COLLECTION_NAME = 'projects'
 
-MONGODB_URI = os.getenv('MONGODB_URI')
+MONGODB_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017')
 DBS_NAME = os.getenv('MONGO_DB_NAME', 'movieDeaths')
 COLLECTION_NAME = os.getenv('MONGO_COLLECTION_NAME', 'projects')
 
