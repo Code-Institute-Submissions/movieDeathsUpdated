@@ -34,26 +34,26 @@
 
 <body id="page-top" class="index application">
 
-<!-- Header -->
-<header>
-    <div class="container">
-        <div class="intro-text">
-            <div class="intro-lead-in">Movie Deaths Dashboard</div>
-            <div class="intro-heading">Come in and Explore!</div>
-            <button class="intro-button btn btn-xl scrollTo" onclick="javascript:introJs().start();">Start Here</button>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in">Movie Deaths Dashboard</div>
+                <div class="intro-heading">Come in and Explore!</div>
+                <button class="intro-button btn btn-xl scrollTo" onclick="javascript:introJs().start();">Start Here</button>
+            </div>
         </div>
-    </div>
 </header>
 <!-- /Header -->
 
 <div id="outer" class="container-fluid">
 
-    <div class="row">
+
+    <div id="topRow" class="row">
         <!-- Movies per Year Chart -->
         <div class="col-sm-6">
-            <div class="chart-wrapper margin-left" data-step="1"
-                 data-intro="This panel shows the number of movies that exist in our dataset for each year <br><br> Choose one year or many to see related info <br><br> Choose none to see data for all years <br><br> Click 'Done' to return to the Dashboard"
-                 style="font-weight: normal" data-position="right">
+            <div class="chart-wrapper" data-step="1" data-intro="This panel shows the number of movies in each year of our dataset <hr>Choose a year to see its related data, or leave blank to see data for all years<hr>Click 'Done' when ready or 'Next' to see a description of the next panel" style="font-weight: normal" data-position="right">
                 <div class="chart-title">
                     Number of Movies per Year in hell
                 </div>
@@ -64,9 +64,9 @@
         </div>
         <!-- / Movies per Year Chart -->
 
-        <!-- Deaths per Year Chart -->
+        <!-- Average Deaths per Year Chart -->
         <div class="col-sm-6">
-            <div class="chart-wrapper margin-right">
+            <div class="chart-wrapper" data-step="2" data-intro="Here we can see the average number of movie deaths in each year<hr>Choose a year to see its related data, or leave blank to see data for all years" style="font-weight: normal" data-position="left">
                 <div class="chart-title">
                     Average Number of Deaths per Year
                 </div>
@@ -82,11 +82,10 @@
     <div class="row">
         <!-- Deaths per Movie Chart -->
         <div class="col-sm-6">
-            <div class="chart-wrapper margin-left data-step=1"
-                 data-intro="Here we see the 10 movies with the greatest number of deaths <br><br> Choose one to see its year of release and director <br><br> Choose none to see data for all years <br><br> Click 'Done' to return to the Dashboard"
-                 style="font-weight: normal" data-position="right">
+
+            <div class="chart-wrapper" data-step="3" data-intro="This panel shows the movies with the highest body counts<hr>Select a movie, or leave blank to see data for all years" style="font-weight: normal" data-position="right">
                 <div class="chart-title">
-                    Top 10 Movies - Number of Deaths
+                    Movies with the Most Deaths
                 </div>
                 <div class="chart-stage">
                     <div id="deaths-movie-chart"></div>
@@ -97,9 +96,10 @@
 
         <!-- Deaths per Director Chart -->
         <div class="col-sm-6">
-            <div class="chart-wrapper margin-right">
+            <div class="chart-wrapper" data-step="4" data-intro="Here we can see the 10 directors with the greatest penchant for death<hr>Selecting a director will show the movie(s) that he/she has made and the year(s) of release" style="font-weight: normal" data-position="left">
                 <div class="chart-title">
-                    Directors That Have Killed the Greatest Number of People
+
+                    Directors that have Killed the Greatest Number of Characters
                 </div>
                 <div class="chart-stage">
                     <div id="deaths-director-chart"></div>
@@ -113,9 +113,10 @@
     <div class="row">
         <!-- Deaths per Minute Chart -->
         <div class="col-sm-6">
-            <div class="chart-wrapper margin-left">
+            <div class="chart-wrapper" data-step="5" data-intro="This panel shows the movies that dispatch their characters with the greatest rapidity<hr>Select a movie, or leave blank to see data for all years" style="font-weight: normal" data-position="right">
                 <div class="chart-title">
-                    Movies That Have the Fastest Death Rate (Deaths per Minute)
+
+                    Movies that have the Highest Death Rate (per Minute)
                 </div>
                 <div class="chart-stage">
                     <div id="deaths-minute-chart"></div>
@@ -126,9 +127,9 @@
 
         <!-- Deaths per Minute (Director) Chart -->
         <div class="col-sm-6">
-            <div class="chart-wrapper margin-right">
+            <div class="chart-wrapper" data-step="6" data-intro="Here we see which directors are the most capable and efficacious with their butchery<hr>Selecting a director will show the movie(s) that he/she has made and the year(s) of release" style="font-weight: normal" data-position="left">
                 <div class="chart-title">
-                    Directors That Kill People the Quickest (Deaths per Minute)
+                    Directors that Kill the Quickest (Deaths per Minute)
                 </div>
                 <div class="chart-stage">
                     <div id="deaths-minute-director-chart"></div>
@@ -139,15 +140,11 @@
     </div><!-- / row -->
 
 
-    <div class="row margin-top margin-bottom">
-        <div class="col-sm-3">
-            <div class="chart-title">
-            </div>
-            <div class="chart-stage">
-            </div>
-        </div>
+    <div class="row">
+
         <!-- Genre Chart -->
-        <div class="col-sm-6">
+        <div class="col-sm-4">
+
             <div class="chart-wrapper">
                 <div class="chart-title">
                     Movie Genres
@@ -156,20 +153,23 @@
                     <div id="genre-chart"></div>
                 </div>
             </div>
+
+            <div class="chart-wrapper">
+                <div class="chart-title">
+                    MPAA Rating
+                </div>
+                <div class="chart-stage">
+                    <div id="genre-chart-2"></div>
+                </div>
+            </div>
+
+
         </div>
         <!-- / Genre Chart -->
-        <div class="col-sm-3">
-            <div class="chart-title">
-            </div>
-            <div class="chart-stage">
-            </div>
-        </div>
-    </div><!-- / row -->
 
 
-    <div class="row margin-both">
         <!-- Body Count / IMDB Bubble Chart -->
-        <div class="col-sm-12">
+        <div class="col-sm-8">
             <div class="chart-wrapper">
                 <div class="chart-title">
                     Body Count related to IMDB Rating
@@ -180,13 +180,18 @@
             </div>
         </div>
         <!-- / Body Count / IMDB Bubble Chart -->
+
     </div><!-- / row -->
 
 
     <!-- ScrollUp Section -->
     <div id="toTop">
+        <div id="bottomText">
+            <p>'E's not pinin'! 'E's passed on! This parrot is no more! He has ceased to be! 'E's expired and gone to meet 'is maker! 'E's a stiff! Bereft of life, 'e rests in peace! If you hadn't nailed 'im to the perch 'e'd be pushing up the daisies! 'Is metabolic processes are now 'istory! 'E's off the twig! 'E's kicked the bucket, 'e's shuffled off 'is mortal coil, run down the curtain and joined the bleedin' choir invisible!! THIS IS AN EX-PARROT!!</p>
+        </div>
         <div class="col-lg-12 text-center">
-            <button class="btn btn-xl scrollUp">Back to Top !</button>
+
+            <button class="btn btn-xl scrollUp"><i class="fa fa-arrow-circle-up fa-2x" aria-hidden="true"></i></button>
         </div>
     </div>
 

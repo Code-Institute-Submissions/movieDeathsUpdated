@@ -28,6 +28,10 @@ function makeGraphs(error, movieDeathsProjects) {
         return d["Director"];
     });
 
+    var mpaaDim = ndx.dimension(function (d) {
+        return d["MPAA_Rating"];
+    });
+
 
     // -- Calculate metrics -- //
     var numMoviesByYear = yearDim.group();
@@ -49,10 +53,10 @@ function makeGraphs(error, movieDeathsProjects) {
 
 
     var numDeathsPerMinuteDirector = directorDim.group().reduceSum(function (d) {
-        return parseFloat(d["Body_Count"] / d["Length_Minutes"]).toFixed(2);
+        return Math.round(d["Body_Count"] / d["Length_Minutes"] * 100) / 100;
     });
 
-
+// Figure out rounding to 2 decimals and floating point error
     var avgDeathsPerYear = yearDim.group().reduce(
         function reduceAdd(p, v) {
             ++p.count;
@@ -98,6 +102,10 @@ function makeGraphs(error, movieDeathsProjects) {
 
 
 
+
+    var mpaaRating = mpaaDim.group();
+
+
     // -- Define values (to be used in charts) -- //
     var minYear = yearDim.bottom(1)[0]["Year"];
     var maxYear = yearDim.top(1)[0]["Year"];
@@ -112,16 +120,21 @@ function makeGraphs(error, movieDeathsProjects) {
     var deathsPerMinuteDirectorChart = dc.rowChart("#deaths-minute-director-chart");
     var bodyCountIMDBChart = dc.bubbleChart("#body-imdb-chart");
     var movieGenres = dc.pieChart("#genre-chart");
+    var mpaaRatingPie = dc.pieChart("#genre-chart-2");
+
+    // var ageRating = dc.
 
 
     moviesPerYearChart // -- BarChart -- //
         .width(820)
         .height(200)
-        .margins({top: 10, right: 50, bottom: 30, left: 30})
+
+        .margins({top: 10, right: 30, bottom: 30, left: 30})
+        .colors("#a10300")
         .dimension(yearDim)
         .group(numMoviesByYear)
         .transitionDuration(1500)
-        .x(d3.scale.ordinal().range([(minYear), (maxYear)]))
+        .x(d3.scale.ordinal().domain([(minYear), (maxYear)]))
         .xUnits(dc.units.ordinal)
         .elasticX(true)
         .elasticY(true)
@@ -130,25 +143,28 @@ function makeGraphs(error, movieDeathsProjects) {
 
     avgDeathsPerYearChart // -- BarChart -- //
         .width(820)
-        .height(400)
-        .margins({top: 30, right: 50, bottom: 50, left: 50})
-        .dimension(movieDim)
+        .height(200)
+        .margins({top: 10, right: 30, bottom: 30, left: 30})
+        .colors("#a10300")
+        .dimension(yearDim)
         .group(avgDeathsPerYear)
         .transitionDuration(1500)
         .x(d3.scale.ordinal().range([(minYear), (maxYear)]))
         .xUnits(dc.units.ordinal)
         .elasticX(true)
         .elasticY(true)
-        .yAxis().ticks(10);
-        // .valueAccessor(function (p) {
-        //     return p.value.average;
-        // });
+        // .yAxis().ticks(10)
+        .valueAccessor(function (p) {
+            return p.value.average;
+        });
 
 
     deathsPerMovieChart // -- RowChart -- //
         .width(820)
-        .height(280)
-        .margins({top: 0, right: 50, bottom: 20, left: 20})
+
+        .height(272)
+        .margins({top: 5, right: 30, bottom: 20, left: 30})
+        .ordinalColors(["#960000", "#9d2001", "#aa4000", "#b75d00", "#c27300", "#c77e00", "#cc8b00", "#d29700", "#d8a400", "#deb300"])
         .elasticX(true)
         .transitionDuration(1500)
         .dimension(movieDim)
@@ -162,8 +178,10 @@ function makeGraphs(error, movieDeathsProjects) {
 
     deathsPerMinuteChart // -- RowChart -- //
         .width(820)
-        .height(280)
-        .margins({top: 0, right: 50, bottom: 20, left: 20})
+
+        .height(272)
+        .margins({top: 5, right: 30, bottom: 20, left: 30})
+        .ordinalColors(["#960000", "#9d2001", "#aa4000", "#b75d00", "#c27300", "#c77e00", "#cc8b00", "#d29700", "#d8a400", "#deb300"])
         .elasticX(true)
         .dimension(movieDim)
         .group(numDeathsPerMinute)
@@ -178,7 +196,9 @@ function makeGraphs(error, movieDeathsProjects) {
 
     deathsPerDirectorChart // -- RowChart -- //
         .width(800)
-        .height(320)
+        .height(272)
+        .margins({top: 5, right: 12, bottom: 20, left: 30})
+        .ordinalColors(["#deb300", "#d8a400", "#d29700", "#cc8b00", "#c77e00", "#c27300", "#b75d00", "#aa4000", "#9d2001", "#960000"])
         .x(d3.scale.linear().domain([0, 6]))
         .elasticX(true)
         .dimension(directorDim)
@@ -194,7 +214,9 @@ function makeGraphs(error, movieDeathsProjects) {
 
     deathsPerMinuteDirectorChart // -- RowChart -- //
         .width(800)
-        .height(320)
+        .height(272)
+        .margins({top: 5, right: 12, bottom: 20, left: 30})
+        .ordinalColors(["#deb300", "#d8a400", "#d29700", "#cc8b00", "#c77e00", "#c27300", "#b75d00", "#aa4000", "#9d2001", "#960000"])
         .x(d3.scale.linear().domain([0, 6]))
         .elasticX(true)
         .dimension(directorDim)
@@ -209,28 +231,45 @@ function makeGraphs(error, movieDeathsProjects) {
 
 
     movieGenres // -- PieChart -- //
-            .radius(200)
-            .width(800)
-            .height(500)
-            .transitionDuration(1500)
-            .dimension(genreDim)
-            .group(genres)
-            .externalLabels(-30)
-            .minAngleForLabel(0.0001);
-        movieGenres.ordering(function (d) {
-            return -d.value
-        });
-        movieGenres.slicesCap([13]);
+        .radius(170)
+        .width(500)
+        .height(405)
+        .transitionDuration(1500)
+        .dimension(genreDim)
+        .group(genres)
+        .renderLabel(true)
+        .minAngleForLabel(.01)
+        .externalLabels(-30);
+        // .legend(dc.legend().x(0).y(0));
+    movieGenres.ordering(function (d) {
+        return -d.value
+    });
+    movieGenres.slicesCap([11]);
+
+
+    mpaaRatingPie // -- PieChart -- //
+        .radius(170)
+        .width(500)
+        .height(406)
+        .transitionDuration(1500)
+        .dimension(mpaaDim)
+        .group(mpaaRating)
+        .ordinalColors(["#5A9BCA", "#B1AED3", "#C6DBEF", "#FDA463", "#5AB576"])
+        .renderLabel(true)
+        .minAngleForLabel(.01)
+        .externalLabels(-30);
+
+
 
 
     bodyCountIMDBChart // -- BubbleChart -- //
-        .width(1650)
-        .height(800)
+        .width(1180)
+        .height(870)
         .margins({top: 20, right: 100, bottom: 30, left: 40})
         .transitionDuration(1500)
         .dimension(movieDim)
         .group(statsByMovie)
-        .colors(d3.scale.category20())
+        .ordinalColors(["#deb300", "#d8a400", "#d29700", "#cc8b00", "#c77e00", "#c27300", "#b75d00", "#aa4000", "#9d2001", "#960000"])
         .keyAccessor(function (p) {
             return p.value.imdb_rating;
         })
@@ -248,8 +287,8 @@ function makeGraphs(error, movieDeathsProjects) {
         .elasticX(true)
         .xAxisPadding(1)
         .xAxisLabel("IMDB Rating")
-        .yAxisLabel("Body Count/Minute")
-        .maxBubbleRelativeSize(.05)
+        .yAxisLabel("Body Count per Minute")
+        .maxBubbleRelativeSize(.08)
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
         .renderLabel(true)
@@ -270,7 +309,7 @@ function makeGraphs(error, movieDeathsProjects) {
 
     // -- jQuery for scrolling to set points -- //
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 100) {
+        if ($(this).scrollTop() > 800) {
             $('.scrollUp').fadeIn();
         } else {
             $('.scrollUp').fadeOut();
@@ -278,10 +317,20 @@ function makeGraphs(error, movieDeathsProjects) {
     });
 
 
+    // Edited scrolling in intro.js (1075) to avoid jerky
+    // page movement when scrollTo functionality is implemented
+
+    $('.scrollTo').click(function () {
+        $("html, body").animate({
+            scrollTop: 729
+        }, 1500);
+        return false;
+    });
+
     $('.scrollUp').click(function () {
         $("html, body").animate({
-            scrollTop: 0
-        }, 1500);
+            scrollTop: 729
+        },1000);
         return false;
     });
 
