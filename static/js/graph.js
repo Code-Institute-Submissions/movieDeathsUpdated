@@ -100,10 +100,9 @@ function makeGraphs(error, movieDeathsProjects) {
 
     var numberFormat = d3.format(".0f");
 
-
-
-
     var mpaaRating = mpaaDim.group();
+
+    var genreGroup = genreDim.group();
 
 
     // -- Define values (to be used in charts) -- //
@@ -234,15 +233,15 @@ function makeGraphs(error, movieDeathsProjects) {
         .height(405)
         .transitionDuration(1500)
         .dimension(genreDim)
-        .group(movieGenres)
+        .group(genreGroup)
         .renderLabel(true)
         .minAngleForLabel(.01)
         .externalLabels(-30);
         // .legend(dc.legend().x(0).y(0));
-    movieGenres.ordering(function (d) {
+    movieGenresPie.ordering(function (d) {
         return -d.value
     });
-    movieGenres.slicesCap([11]);
+    movieGenresPie.slicesCap([11]);
 
 
     mpaaRatingPie // -- PieChart -- //
