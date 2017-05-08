@@ -119,7 +119,7 @@ function makeGraphs(error, movieDeathsProjects) {
     var deathsPerDirectorChart = dc.rowChart("#deaths-director-chart");
     var deathsPerMinuteDirectorChart = dc.rowChart("#deaths-minute-director-chart");
     var bodyCountIMDBChart = dc.bubbleChart("#body-imdb-chart");
-    var movieGenres = dc.pieChart("#genre-chart");
+    var movieGenresPie = dc.pieChart("#genre-chart");
     var mpaaRatingPie = dc.pieChart("#genre-chart-2");
 
     // var ageRating = dc.
@@ -128,7 +128,6 @@ function makeGraphs(error, movieDeathsProjects) {
     moviesPerYearChart // -- BarChart -- //
         .width(820)
         .height(200)
-
         .margins({top: 10, right: 30, bottom: 30, left: 30})
         .colors("#a10300")
         .dimension(yearDim)
@@ -161,7 +160,6 @@ function makeGraphs(error, movieDeathsProjects) {
 
     deathsPerMovieChart // -- RowChart -- //
         .width(820)
-
         .height(272)
         .margins({top: 5, right: 30, bottom: 20, left: 30})
         .ordinalColors(["#960000", "#9d2001", "#aa4000", "#b75d00", "#c27300", "#c77e00", "#cc8b00", "#d29700", "#d8a400", "#deb300"])
@@ -230,7 +228,7 @@ function makeGraphs(error, movieDeathsProjects) {
     deathsPerMinuteDirectorChart.othersGrouper(false);
 
 
-    movieGenres // -- PieChart -- //
+    movieGenresPie // -- PieChart -- //
         .radius(170)
         .width(500)
         .height(405)
@@ -258,8 +256,6 @@ function makeGraphs(error, movieDeathsProjects) {
         .renderLabel(true)
         .minAngleForLabel(.01)
         .externalLabels(-30);
-
-
 
 
     bodyCountIMDBChart // -- BubbleChart -- //
