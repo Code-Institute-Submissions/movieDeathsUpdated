@@ -112,7 +112,7 @@ function makeGraphs(error, movieDeathsProjects) {
 
     // -- Charts -- //
     var moviesPerYearChart = dc.barChart("#year-movie-chart");
-    var avgDeathsPerYearChart = dc.barChart("#year-death-chart");
+    var avgDeathsPerYearChart = dc.rowChart("#year-death-chart");
     var deathsPerMovieChart = dc.rowChart("#deaths-movie-chart");
     var deathsPerMinuteChart = dc.rowChart("#deaths-minute-chart");
     var deathsPerDirectorChart = dc.rowChart("#deaths-director-chart");
@@ -140,26 +140,28 @@ function makeGraphs(error, movieDeathsProjects) {
 
 
     avgDeathsPerYearChart // -- BarChart -- //
-        .width(820)
-        .height(200)
+        .width(520)
+        .height(870)
         .margins({top: 10, right: 30, bottom: 30, left: 30})
-        .colors("#a10300")
+        .colors("#d8a400")
         .dimension(yearDim)
         .group(avgDeathsPerYear)
         .transitionDuration(1500)
-        .x(d3.scale.ordinal().range([(minYear), (maxYear)]))
-        .xUnits(dc.units.ordinal)
+        // .xAxisLabel()
+        // .x(d3.scale.ordinal().range([(minYear), (maxYear)]))
+        // .xUnits(dc.units.ordinal)
         .elasticX(true)
-        .elasticY(true)
+        // .elasticY(true)
         // .yAxis().ticks(10)
         .valueAccessor(function (p) {
             return p.value.average;
         });
 
 
+
     deathsPerMovieChart // -- RowChart -- //
         .width(820)
-        .height(272)
+        .height(225)
         .margins({top: 5, right: 30, bottom: 20, left: 30})
         .ordinalColors(["#960000", "#9d2001", "#aa4000", "#b75d00", "#c27300", "#c77e00", "#cc8b00", "#d29700", "#d8a400", "#deb300"])
         .elasticX(true)
@@ -176,7 +178,7 @@ function makeGraphs(error, movieDeathsProjects) {
     deathsPerMinuteChart // -- RowChart -- //
         .width(820)
 
-        .height(272)
+        .height(225)
         .margins({top: 5, right: 30, bottom: 20, left: 30})
         .ordinalColors(["#960000", "#9d2001", "#aa4000", "#b75d00", "#c27300", "#c77e00", "#cc8b00", "#d29700", "#d8a400", "#deb300"])
         .elasticX(true)
@@ -193,7 +195,7 @@ function makeGraphs(error, movieDeathsProjects) {
 
     deathsPerDirectorChart // -- RowChart -- //
         .width(800)
-        .height(272)
+        .height(225)
         .margins({top: 5, right: 12, bottom: 20, left: 30})
         .ordinalColors(["#deb300", "#d8a400", "#d29700", "#cc8b00", "#c77e00", "#c27300", "#b75d00", "#aa4000", "#9d2001", "#960000"])
         .x(d3.scale.linear().domain([0, 6]))
@@ -211,7 +213,7 @@ function makeGraphs(error, movieDeathsProjects) {
 
     deathsPerMinuteDirectorChart // -- RowChart -- //
         .width(800)
-        .height(272)
+        .height(225)
         .margins({top: 5, right: 12, bottom: 20, left: 30})
         .ordinalColors(["#deb300", "#d8a400", "#d29700", "#cc8b00", "#c77e00", "#c27300", "#b75d00", "#aa4000", "#9d2001", "#960000"])
         .x(d3.scale.linear().domain([0, 6]))
@@ -228,9 +230,9 @@ function makeGraphs(error, movieDeathsProjects) {
 
 
     movieGenresPie // -- PieChart -- //
-        .radius(170)
-        .width(500)
-        .height(405)
+        .radius(150)
+        .width(525)
+        .height(300)
         .transitionDuration(1500)
         .dimension(genreDim)
         .group(genreGroup)
@@ -245,9 +247,9 @@ function makeGraphs(error, movieDeathsProjects) {
 
 
     mpaaRatingPie // -- PieChart -- //
-        .radius(170)
-        .width(500)
-        .height(406)
+        .radius(150)
+        .width(525)
+        .height(300)
         .transitionDuration(1500)
         .dimension(mpaaDim)
         .group(mpaaRating)
@@ -291,7 +293,9 @@ function makeGraphs(error, movieDeathsProjects) {
         .title(function (p) {
             return p.key
                 + "\n"
-                + "Body Count : " + numberFormat(p.value.body_count)
+                + "Body Count: " + numberFormat(p.value.body_count)
+                + "\n"
+                + "IMDB Rating: " + numberFormat(p.value.imdb_rating)
         });
     bodyCountIMDBChart.yAxis().tickFormat(function (s) {
         return s;

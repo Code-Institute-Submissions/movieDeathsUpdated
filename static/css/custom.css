@@ -46,6 +46,13 @@ body.application div[class^="col-"] {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.dc-chart g.row text {
+    fill: black;
+    font-size: 14px;
+    font-weight: 200;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 .center {
     margin: 0 auto;
 }

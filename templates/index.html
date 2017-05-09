@@ -52,30 +52,20 @@
 
     <div id="topRow" class="row">
 
-        <!-- Genre Chart -->
+        <!-- Avg Deaths Chart -->
         <div class="col-sm-4">
-
-            <div class="chart-wrapper">
+            <div class="chart-wrapper" data-step="2"
+                 data-intro="Here we can see the average number of movie deaths in each year<hr>Choose a year to see its related data, or leave blank to see data for all years"
+                 style="font-weight: normal" data-position="left">
                 <div class="chart-title">
-                    Movie Genres
+                    Average Number of Deaths per Year
                 </div>
                 <div class="chart-stage">
-                    <div id="genre-chart"></div>
+                    <div id="year-death-chart"></div>
                 </div>
             </div>
-
-            <div class="chart-wrapper">
-                <div class="chart-title">
-                    MPAA Rating
-                </div>
-                <div class="chart-stage">
-                    <div id="genre-chart-2"></div>
-                </div>
-            </div>
-
-
         </div>
-        <!-- / Genre Chart -->
+        <!-- / Avg Deaths Chart -->
 
 
         <!-- Body Count / IMDB Bubble Chart -->
@@ -91,38 +81,6 @@
         </div>
         <!-- / Body Count / IMDB Bubble Chart -->
 
-    </div><!-- / row -->
-
-    <div class="row">
-        <!-- Movies per Year Chart -->
-        <div class="col-sm-6">
-            <div class="chart-wrapper" data-step="1"
-                 data-intro="This panel shows the number of movies in each year of our dataset <hr>Choose a year to see its related data, or leave blank to see data for all years<hr>Click 'Done' when ready or 'Next' to see a description of the next panel"
-                 style="font-weight: normal" data-position="right">
-                <div class="chart-title">
-                    Number of Movies per Year
-                </div>
-                <div class="chart-stage">
-                    <div id="year-movie-chart"></div>
-                </div>
-            </div>
-        </div>
-        <!-- / Movies per Year Chart -->
-
-        <!-- Average Deaths per Year Chart -->
-        <div class="col-sm-6">
-            <div class="chart-wrapper" data-step="2"
-                 data-intro="Here we can see the average number of movie deaths in each year<hr>Choose a year to see its related data, or leave blank to see data for all years"
-                 style="font-weight: normal" data-position="left">
-                <div class="chart-title">
-                    Average Number of Deaths per Year
-                </div>
-                <div class="chart-stage">
-                    <div id="year-death-chart"></div>
-                </div>
-            </div>
-        </div>
-        <!-- / Deaths per Year Chart -->
     </div><!-- / row -->
 
 
@@ -192,6 +150,36 @@
             </div>
         </div>
         <!-- / Deaths per Minute (Director) Chart -->
+    </div><!-- / row -->
+
+    <div class="row">
+
+        <!-- Genre Chart -->
+        <div class="col-sm-4 col-sm-offset-2">
+
+            <div class="chart-wrapper">
+                <div class="chart-title">
+                    Movie Genres
+                </div>
+                <div class="chart-stage">
+                    <div id="genre-chart"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="chart-wrapper">
+                <div class="chart-title">
+                    MPAA Rating
+                </div>
+                <div class="chart-stage">
+                    <div id="genre-chart-2"></div>
+                </div>
+            </div>
+        </div>
+        <!-- / Genre Chart -->
+
+
     </div><!-- / row -->
 
 
