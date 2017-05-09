@@ -21,12 +21,12 @@ header {
 
 
 body.application div[class^="col-"] {
-    padding: 0px 5px;
+    padding: 0 5px;
 }
 
 .row {
-     margin-right: 0px;
-     margin-left: 0px;
+     margin-right: 0;
+     margin-left: 0;
 }
 
 .dc-chart .brush rect.extent {
@@ -37,6 +37,13 @@ body.application div[class^="col-"] {
 .dc-chart rect.deselected {
     stroke: none;
     fill: rgba(222, 179, 0, 0.36);
+}
+
+.dc-chart .x-axis-label, .y-axis-label {
+    color: #666;
+    font-size: 14px;
+    font-weight: 200;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .center {
@@ -123,5 +130,5 @@ section h3.section-subheading {
 }
 
 footer {
-    padding: 0px;
+    padding: 0;
 }
