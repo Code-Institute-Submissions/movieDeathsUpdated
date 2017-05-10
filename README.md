@@ -1,4 +1,4 @@
-# Movie Deaths Dashboards
+# Movie Deaths Dashboard
 
 An exercise in Data Visualisation, using a dataset which focuses on the number of deaths that take place in movies.
 
