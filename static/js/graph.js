@@ -97,7 +97,7 @@ function makeGraphs(error, movieDeathsProjects) {
     );
 
 
-    var numberFormat = d3.format(".0f");
+    var numberFormat = d3.format(".1f"); // applying this var to numbers reduces the value to 1 decimal place
 
     var mpaaRating = mpaaDim.group();
 
@@ -133,7 +133,7 @@ function makeGraphs(error, movieDeathsProjects) {
         .transitionDuration(1500)
         .elasticX(true)
         .valueAccessor(function (p) {
-            return p.value.average;
+            return Math.round((p.value.average * 10) / 10); // Rounds to whole number
         });
 
 
@@ -282,7 +282,6 @@ function makeGraphs(error, movieDeathsProjects) {
         .externalLabels(-30);
 
 
-    // AUTOMATIC SCROLLING FOR TOOLTIPS DOESN'T WORK
 
     // moviesPerYearChart // -- BarChart -- //     // -- DEEMED THIS CHART UNNECESSARY AFTER I CREATED IT, KEEPING CODE FOR POSSIBLE LATER USE -- //
     //     .width(820)
