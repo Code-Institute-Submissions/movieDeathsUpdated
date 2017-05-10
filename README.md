@@ -39,11 +39,11 @@ Manual testing was undertaken for every feature of the website and satisfactoril
 ## Hosting
 A live version of this dashboard is hosted [here](https://com-movie-dashboard.herokuapp.com/) on Heroku.
 
-## Authors
+## Author
 Brendan Long
 
 ## License
-This project is licensed under the MIT License
+This project is licensed under the MIT License.
 
 ## Acknowledgments
 - [Start Bootstrap - Agency Theme](https://startbootstrap.com/template-overviews/agency/)
