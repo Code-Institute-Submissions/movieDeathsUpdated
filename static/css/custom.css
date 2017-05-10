@@ -3,6 +3,10 @@ body.application {
     padding: 0px;
 }
 
+body.application div[class^="col-"] {
+    padding: 0 5px;
+}
+
 header {
     background-image: url("../../static/lib/images/header.jpg");
     margin-top: 0;
@@ -14,23 +18,18 @@ header {
 }
 
 .intro_button {
-    position:relative;
+    position: relative;
     top: 11px;
     background-color: white;
 }
 
-
-body.application div[class^="col-"] {
-    padding: 0 5px;
-}
-
-.hidden {
+.hidden { /* css trick for back to top button showing on load */
     display: none;
 }
 
 .row {
-     margin-right: 0;
-     margin-left: 0;
+    margin-right: 0;
+    margin-left: 0;
 }
 
 .dc-chart .brush rect.extent {
@@ -61,7 +60,7 @@ body.application div[class^="col-"] {
     margin: 0 auto;
 }
 
-.no-radius {
+.no-radius { /* removed default dc.js border radius for cleaner appearance */
     border-radius: 0;
 }
 
@@ -83,7 +82,6 @@ body.application div[class^="col-"] {
     transform: rotate(-45deg);
 }
 
-
 .dc-chart .pie-slice {
     fill: white;
     font-size: 12px;
@@ -96,7 +94,6 @@ body.application div[class^="col-"] {
     border-radius: 0px;
     margin-bottom: 10px;
 }
-
 
 #bottomBanner {
     height: 200px;
@@ -125,7 +122,7 @@ section h3.section-subheading {
     width: 1300px;
     position: relative;
     top: 28px;
-    left:20px;
+    left: 20px;
 }
 
 #bottomText p {
@@ -136,7 +133,6 @@ section h3.section-subheading {
     font-size: 20px;
     padding-left: 10px;
     padding-right: 10px;
-
 }
 
 footer {
