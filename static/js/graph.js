@@ -298,6 +298,15 @@ function makeGraphs(error, movieDeathsProjects) {
 
 
     // -- jQuery for scrolling to set points -- //
+
+    // This function was required to overcome an issue whereby the 'back to top' button appeared when the page was first loaded. It would disappear after scrolling down 1px and then resume expected functionality
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 800) {
+            $('.scrollUp').removeClass('hidden');
+        }
+    });
+
+    // This function only allows 'back to top' button to appear after scrolling down the page.
     $(window).scroll(function () {
         if ($(this).scrollTop() > 800) {
             $('.scrollUp').fadeIn();
@@ -310,12 +319,6 @@ function makeGraphs(error, movieDeathsProjects) {
     // Edited scrolling in intro.js (1075) to avoid jerky
     // page movement when scrollTo functionality is implemented
 
-    $('.scrollTo').click(function () {
-        $("html, body").animate({
-            scrollTop: 729 // Decided it was best to scroll to start of graphs rather than the top of the page welcome message
-        }, 1500);
-        return false;
-    });
 
     $('.scrollUp').click(function () {
         $("html, body").animate({
