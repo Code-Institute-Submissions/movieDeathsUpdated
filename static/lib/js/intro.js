@@ -67,7 +67,7 @@
       /* Set the overlay opacity */
       overlayOpacity: 0.8,
       /* Padding to add after scrolling when element is not in the viewport (in pixels) */
-      scrollPadding: 30,
+      scrollPadding: -70, // Editing this value enabled me to show graphs the way I wanted
       /* Precedence of positions, when auto is enabled */
       positionPrecedence: ["bottom", "top", "right", "left"],
       /* Disable an interaction with element? */
@@ -1072,7 +1072,7 @@
       parentElm = parentElm.parentNode;
     }
 // Changed to false to avoid jerky scroll to tooltip since this functionality was enabled in my jQuery scrollTo.
-    if (!_elementInViewport(targetElement.element) && this._options.scrollToElement === false) {
+    if (!_elementInViewport(targetElement.element) && this._options.scrollToElement === true) {
       var rect = targetElement.element.getBoundingClientRect(),
         winHeight = _getWinSize().height,
         top = rect.bottom - (rect.bottom - rect.top),
