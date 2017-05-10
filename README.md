@@ -33,6 +33,9 @@ There are a number of websites dedicated to the meticulous counting and visualis
 
 The greatest amount of credit for the inspiration for this dashboard goes to [ramiro.org](http://ramiro.org/notebook/movie-body-counts/) who created a broadly similar visualisation using different technologies with which I am not familiar (pandas, NumPy and matplotlib).
 
+## Testing 
+Manual testing was undertaken for every feature of the website and satisfactorily passed.
+
 ## Authors
 
 Brendan Long 
