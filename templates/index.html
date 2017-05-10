@@ -47,9 +47,11 @@
 </header>
 <!-- /Header -->
 
+
 <div id="outer" class="container-fluid">
 
 
+    <!-- AvgDeaths/BodyCount Row -->
     <div id="topRow" class="row">
 
         <!-- Avg Deaths Chart -->
@@ -67,7 +69,6 @@
         </div>
         <!-- / Avg Deaths Chart -->
 
-
         <!-- Body Count / IMDB Bubble Chart -->
         <div class="col-sm-8">
             <div class="chart-wrapper" data-step="2"
@@ -83,10 +84,13 @@
         </div>
         <!-- / Body Count / IMDB Bubble Chart -->
 
-    </div><!-- / row -->
+    </div><!-- / AvgDeaths/BodyCount Row -->
 
 
+
+    <!-- MovieDeaths/Directors Row -->
     <div class="row">
+
         <!-- Deaths per Movie Chart -->
         <div class="col-sm-6">
 
@@ -109,7 +113,6 @@
                  data-intro="Here we can see the 10 <strong>Directors</strong> with the <strong>Greatest Penchant for Death</strong><hr>Selecting a director will show the movie(s) that he/she has made and the year(s) of release"
                  style="font-weight: normal" data-position="left">
                 <div class="chart-title">
-
                     Directors that have Killed the Greatest Number of Characters
                 </div>
                 <div class="chart-stage">
@@ -118,17 +121,20 @@
             </div>
         </div>
         <!-- / Deaths per Director Chart -->
-    </div><!-- / row -->
+
+    </div><!-- / MovieDeaths/Directors Row -->
 
 
+
+    <!-- Minute/MinuteDirector Row -->
     <div class="row">
+
         <!-- Deaths per Minute Chart -->
         <div class="col-sm-6">
             <div class="chart-wrapper" data-step="5"
                  data-intro="This panel shows the <strong>Movies</strong> that <strong>Dispatch</strong> their <strong>Characters</strong> with the <strong>Greatest Rapidity</strong><hr>Select a movie, or leave blank to see data for all movies"
                  style="font-weight: normal" data-position="right">
                 <div class="chart-title">
-
                     Movies that have the Highest Death Rate (per Minute)
                 </div>
                 <div class="chart-stage">
@@ -152,8 +158,11 @@
             </div>
         </div>
         <!-- / Deaths per Minute (Director) Chart -->
-    </div><!-- / row -->
 
+    </div><!-- / Minute/MinuteDirector Row -->
+
+
+    <!-- Genre/MPAA Row -->
     <div class="row">
 
         <!-- Genre Chart -->
@@ -170,10 +179,12 @@
                 </div>
             </div>
         </div>
+        <!-- / Genre Chart -->
 
+        <!-- MPAA Chart -->
         <div class="col-sm-4">
             <div class="chart-wrapper" data-step="8"
-                 data-intro= "Choose an <strong>MPAA Rating</strong> to see its related data"
+                 data-intro="Choose an <strong>MPAA Rating</strong> to see its related data"
                  style="font-weight: normal" data-position="right">
                 <div class="chart-title">
                     MPAA Rating
@@ -183,14 +194,13 @@
                 </div>
             </div>
         </div>
-        <!-- / Genre Chart -->
+        <!-- / MPAA Chart -->
 
-
-    </div><!-- / row -->
+    </div><!-- / Genre/MPAA Row -->
 
 
     <!-- ScrollUp Section -->
-    <div id="toTop">
+    <div id="bottomBanner">
         <div id="bottomText">
             <p>'E's not pinin'! 'E's passed on! This parrot is no more! He has ceased to be! 'E's expired and gone to
                 meet 'is maker! 'E's a stiff! Bereft of life, 'e rests in peace! If you hadn't nailed 'im to the perch
@@ -198,9 +208,10 @@
                 the bucket, 'e's shuffled off 'is mortal coil, run down the curtain and joined the bleedin' choir
                 invisible!! THIS IS AN EX-PARROT!!</p>
         </div>
-        <div class="col-lg-12 text-center">
 
-            <button class="btn btn-xl scrollUp hidden"><i class="fa fa-arrow-circle-up fa-2x" aria-hidden="true"></i></button>
+        <div class="col-lg-12 text-center">
+            <button class="btn btn-xl scrollUp hidden"><i class="fa fa-arrow-circle-up fa-2x" aria-hidden="true"></i>
+            </button>
         </div>
     </div>
 

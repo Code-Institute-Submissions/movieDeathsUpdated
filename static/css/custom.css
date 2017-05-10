@@ -98,7 +98,7 @@ body.application div[class^="col-"] {
 }
 
 
-#toTop {
+#bottomBanner {
     height: 200px;
     background-image: url("../../static/lib/images/footer.jpg");
     background-repeat: no-repeat;
