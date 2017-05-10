@@ -199,23 +199,6 @@ function makeGraphs(error, movieDeathsProjects) {
     deathsPerMovieChart.othersGrouper(false);
 
 
-    deathsPerMinuteChart // -- RowChart -- //
-        .width(820)
-        .height(225)
-        .margins({top: 5, right: 30, bottom: 20, left: 30})
-        .ordinalColors(["#960000", "#9d2001", "#aa4000", "#b75d00", "#c27300", "#c77e00", "#cc8b00", "#d29700", "#d8a400", "#deb300"])
-        .elasticX(true)
-        .dimension(movieDim)
-        .group(numDeathsPerMinute)
-        .transitionDuration(1500)
-        .xAxis().ticks(10);
-    deathsPerMinuteChart.ordering(function (d) { // Orders results in reverse
-        return -d.value
-    });
-    deathsPerMinuteChart.rowsCap([10]); // Caps the results at 10
-    deathsPerMinuteChart.othersGrouper(false); // Everything after first 10 results is stored in a group called others, this prevents that group being shown
-
-
     deathsPerDirectorChart // -- RowChart -- //
         .width(800)
         .height(225)
@@ -232,6 +215,23 @@ function makeGraphs(error, movieDeathsProjects) {
     });
     deathsPerDirectorChart.rowsCap([10]);
     deathsPerDirectorChart.othersGrouper(false);
+
+
+    deathsPerMinuteChart // -- RowChart -- //
+        .width(820)
+        .height(225)
+        .margins({top: 5, right: 30, bottom: 20, left: 30})
+        .ordinalColors(["#960000", "#9d2001", "#aa4000", "#b75d00", "#c27300", "#c77e00", "#cc8b00", "#d29700", "#d8a400", "#deb300"])
+        .elasticX(true)
+        .dimension(movieDim)
+        .group(numDeathsPerMinute)
+        .transitionDuration(1500)
+        .xAxis().ticks(10);
+    deathsPerMinuteChart.ordering(function (d) { // Orders results in reverse
+        return -d.value
+    });
+    deathsPerMinuteChart.rowsCap([10]); // Caps the results at 10
+    deathsPerMinuteChart.othersGrouper(false); // Everything after first 10 results is stored in a group called others, this prevents that group being shown
 
 
     deathsPerMinuteDirectorChart // -- RowChart -- //
@@ -258,12 +258,13 @@ function makeGraphs(error, movieDeathsProjects) {
         .height(300)
         .transitionDuration(1500)
         .dimension(genreDim)
+        .ordinalColors(["#ddc32c", "#deb300", "#d8a400", "#d29700", "#cc8b00", "#c77e00", "#c27300", "#b75d00", "#aa4000", "#9d2001", "#990000", "#AA0000"])
         .group(genreGroup)
         .renderLabel(true)
         .minAngleForLabel(.01)
         .externalLabels(-30);
     movieGenresPie.ordering(function (d) {
-        return -d.value
+        return +d.value
     });
     movieGenresPie.slicesCap([11]);
 
@@ -275,7 +276,7 @@ function makeGraphs(error, movieDeathsProjects) {
         .transitionDuration(1500)
         .dimension(mpaaDim)
         .group(mpaaRating)
-        .ordinalColors(["#5A9BCA", "#B1AED3", "#C6DBEF", "#FDA463", "#5AB576"])
+        .ordinalColors(["#c77e00", "#b75d00", "#aa4000", "#9d2001", "#AA0000"])
         .renderLabel(true)
         .minAngleForLabel(.01)
         .externalLabels(-30);
