@@ -18,6 +18,9 @@ Download the correct version for your operating system and follow the installati
 ### requirements.txt
 Create a local environment and pip install all packages listed in requirements.txt
 
+### Local Server
+Navigate to http://localhost:5000/ to view your app locally
+
 ## Built With
 
 - [Flask](http://flask.pocoo.org/) - a lightweight Python web framework based on Werkzeug and Jinja 2
@@ -32,6 +35,10 @@ There are a number of websites dedicated to the meticulous counting and visualis
 - [randalolson.com](http://www.randalolson.com/2013/12/31/deadliest-films-of-all-time-by-on-screen-death-counts/) - put this dataset together
 
 The greatest amount of credit for the inspiration for this dashboard goes to [ramiro.org](http://ramiro.org/notebook/movie-body-counts/) who created a broadly similar visualisation using different technologies with which I am not familiar (pandas, NumPy and matplotlib).
+
+## Responsiveness
+As of this point, this dashboard is not responsive due to limitations in dc.js.
+The website is optimised to be viewed on a 2016 15" MacBook Pro, and will not render correctly on any other screensize.
 
 ## Testing
 Manual testing was undertaken for every feature of the website and satisfactorily passed.
