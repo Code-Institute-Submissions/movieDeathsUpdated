@@ -36,6 +36,9 @@ The greatest amount of credit for the inspiration for this dashboard goes to [ra
 ## Testing
 Manual testing was undertaken for every feature of the website and satisfactorily passed.
 
+## Hosting
+A live version of this website is hosted [https://com-movie-dashboard.herokuapp.com/) on Heroku.
+
 ## Authors
 Brendan Long
 
