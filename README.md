@@ -29,8 +29,11 @@ Create and activate a local virtual environment and pip install -r requirements.
 
 ### Local Server
 Run your app using the following commands in command line:
+
 $ export FLASK_APP=stream2_project.py
+
 $ flask run
+
 Navigate to http://localhost:5000/ to view your app locally
 
 ## Built With
