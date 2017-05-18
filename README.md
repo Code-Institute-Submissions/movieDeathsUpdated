@@ -7,18 +7,28 @@ It is possible to filter results by Year, Director, Genre, MPAA Rating, and Deat
 ## Qualification
 Due to the limited nature of the dataset (422 movies from 1949 to 2010) it is not possible to infer too much hard fact from analysis.
 This is meant purely as a learning exercise, displaying some of the features of dc.js and crossfilter.js, and aiming to increase my own knowledge of working with the Flask framework and json data.
+All instructions on how to use this dashboard can be found within the hosted application by clicking on the 'Start Here' button.
 
 ## Getting Started
 
 ### Prerequisites
 
+No installation is necessary to view this app online.
+A live version of this dashboard is hosted [here](https://com-movie-dashboard.herokuapp.com/) on Heroku.
+
+If you wish to test/develop this app locally, clone this repo and use the following guidelines:
+
+### Python
 You must have Python 2.7 installed on your system, available [here](https://www.python.org/).
 Download the correct version for your operating system and follow the installation instructions.
 
 ### requirements.txt
-Create a local environment and pip install all packages listed in requirements.txt
+Create and activate a local virtual environment and pip install -r requirements.txt
 
 ### Local Server
+Run your app using the following commands in command line:
+$ export FLASK_APP=stream2_project.py
+$ flask run
 Navigate to http://localhost:5000/ to view your app locally
 
 ## Built With
@@ -42,9 +52,6 @@ The website is optimised to be viewed on a 2016 15" MacBook Pro, and will not re
 
 ## Testing
 Manual testing was undertaken for every feature of the website and satisfactorily passed.
-
-## Hosting
-A live version of this dashboard is hosted [here](https://com-movie-dashboard.herokuapp.com/) on Heroku.
 
 ## Author
 Brendan Long
