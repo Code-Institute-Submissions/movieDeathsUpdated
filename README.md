@@ -4,10 +4,12 @@ An exercise in Data Visualisation, using a dataset which focuses on the number o
 
 It is possible to filter results by Year, Director, Genre, MPAA Rating, and Deaths per Minute.
 
+All instructions on how to use this dashboard can be found within the hosted application by clicking on the 'Start Here' button.
+
 ## Qualification
 Due to the limited nature of the dataset (422 movies from 1949 to 2010) it is not possible to infer too much hard fact from analysis.
+
 This is meant purely as a learning exercise, displaying some of the features of dc.js and crossfilter.js, and aiming to increase my own knowledge of working with the Flask framework and json data.
-All instructions on how to use this dashboard can be found within the hosted application by clicking on the 'Start Here' button.
 
 ## Getting Started
 
