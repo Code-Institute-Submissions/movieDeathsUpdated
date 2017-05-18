@@ -282,7 +282,6 @@ function makeGraphs(error, movieDeathsProjects) {
         .externalLabels(-30);
 
 
-
     // moviesPerYearChart // -- BarChart -- //     // -- DEEMED THIS CHART UNNECESSARY AFTER I CREATED IT, KEEPING CODE FOR POSSIBLE LATER USE -- //
     //     .width(820)
     //     .height(200)
@@ -317,8 +316,7 @@ function makeGraphs(error, movieDeathsProjects) {
     });
 
 
-    // Edited scrolling in intro.js (1075) to avoid jerky
-    // page movement when scrollTo functionality is implemented
+    // Edited scrolling in intro.js (1075) to avoid jerky page movement when scrollTo functionality is implemented
 
     // Edited padding intro.js (70) to ensure complete graph showed in tooltips
 
